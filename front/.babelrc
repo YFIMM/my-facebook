@@ -7,6 +7,7 @@
         "ssr": true,
         "displayName": true
       }
-    ]
+    ],
+    ["styled-jsx/babel", { "optimizeForSpeed": true }]
   ]
 }

@@ -9,25 +9,28 @@ import {
 import { BsPeopleFill } from "react-icons/bs";
 
 export const HeaderBar = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  height: 56px;
   position: fixed;
+  background-color: #242526;
   width: 100%;
-  background: white;
-  top: 0;
-  z-index: 100;
-  padding: 8px 20px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-`;
-
-export const HeaderLeft = styled.div`
   display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
-export const LogoBox = styled.div`
-  margin-right: 10px;
+export const SearchWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+export const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 15%;
+  height: 100%;
 `;
 
 export const Logo = styled(FaFacebook)`
@@ -35,116 +38,134 @@ export const Logo = styled(FaFacebook)`
   color: #3b5998;
 `;
 
-export const SearchBox = styled.div`
+export const SearchContainer = styled.div`
+  width: 75%;
+  height: 100%;
   display: flex;
   align-items: center;
-  position: relative;
 `;
 
-export const Input = styled.input`
-  padding: 12px;
-  border: none;
-  background: #f0f2f5;
-  border-radius: 100px;
-  padding-left: 35px;
+export const InputContainer = styled.div`
+  width: 100%;
+  height: 40px;
+  border: 1px solid #3a3b3c;
+  border-radius: 50px;
+  background-color: #3a3b3c;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: #606770;
 `;
 
 export const SearchIcon = styled(FaSistrix)`
-  position: absolute;
-  left: 10px;
-  color: black;
   font-size: 18px;
+  color: inherit;
+  margin-left: 5px;
 `;
 
-export const HeaderMenu = styled.div`
-  & ul {
-    display: flex;
-    align-items: center;
+export const Input = styled.input`
+  color: inherit;
+  text-indent: 20px;
+  font-weight: normal;
+  font: 400 13.3333px Arial;
+  width: 70%;
+  height: 100%;
+  background-color: inherit;
+  outline: none;
+  border: none;
+`;
 
-    & li:not(:last-child) {
-      margin-right: 75px;
+export const NavigatorWrapper = styled.div`
+  flex: 2.5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const NavigatorContainer = styled.div`
+  width: 80%;
+  height: 100%;
+
+  & ul {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    & li {
+      list-style-type: none;
+      float: left;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid #2d88ff;
+      border-bottom-right-radius: 1px;
+      border-bottom-left-radius: 1px;
     }
   }
 `;
 
 export const HomeIcon = styled(FaHome)`
-  font-size: 25px;
+  font-size: 36px;
   color: #606770;
-  position: relative;
+  color: #2d88ff;
 `;
 
 export const PeopleIcon = styled(BsPeopleFill)`
-  font-size: 25px;
+  font-size: 36px;
   color: #606770;
-  position: relative;
 `;
 
 export const MessengerIcon = styled(FaFacebookMessenger)`
-  font-size: 25px;
+  font-size: 36px;
   color: #606770;
-  position: relative;
 `;
 
-export const IconAndNotificationContainer = styled.div`
-  display: inline-block;
-  position: relative;
-`;
-
-export const Notification = styled.div`
-  display: flex;
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  top: -10px;
-  left: 15px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  font-size: 10px;
-  color: #fff;
-`;
-
-export const HeaderRight = styled.div`
+export const UserWrapper = styled.div`
+  flex: 1;
+  height: 100%;
   display: flex;
   align-items: center;
-`;
+  justify-content: flex-end;
 
-export const ProfileBox = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 15px;
-
-  & p {
-    font-weight: 300;
-    font-size: 1rem;
-  }
-`;
-
-export const ProfileImgBox = styled.div`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 5px;
-  & img {
-    width: 100%;
+  & > div {
+    width: 60%;
     height: 100%;
-    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 `;
 
-export const IconBox = styled.div`
+export const UserContainer = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
-  background: #f0f2f5;
+
+  & span {
+    color: #e4e6eb;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.3333;
+    margin-left: 5px;
+  }
+`;
+
+export const DropDownContainer = styled.div`
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
   justify-content: center;
   width: 40px;
   height: 40px;
   border-radius: 100px;
+  cursor: pointer;
 `;
 
 export const DropDownIcon = styled(FaCaretDown)`
-  font-size: 25px;
-  color: #606770;
+  font-size: 23px;
+  color: #e4e6eb;
 `;
