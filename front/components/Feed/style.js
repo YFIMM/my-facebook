@@ -1,69 +1,50 @@
 import styled from "styled-components";
 
 export const FeedWrapper = styled.div`
-  flex: 2;
+  border: 1px solid blue;
+  flex: 2.5;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 0 10px;
+  justify-content: center;
 `;
 
 export const FeedContainer = styled.div`
+  width: 70%;
+  height: 100%;
+`;
+
+export const PostBox = styled.div`
+  background-color: #242526;
+  height: 70px;
+  width: 100%;
   display: flex;
+  justify-content: space-around;
   align-items: center;
+  border-radius: 8px;
+  margin: 10px 0px;
   flex-direction: column;
-  width: 500px;
-  max-width: 500px;
 `;
 
-export const StoryWrapper = styled.div`
+export const Divider = styled.div`
+  width: 80%;
+  height: 1px;
+  background-color: #b0b3b8;
+  border-radius: 2px;
+`;
+
+export const PostBtn = styled.div`
+  width: 420px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #b0b3b8;
+  font-size: 1.0625rem;
+  padding-left: 7px;
+  height: 40px;
   display: flex;
   align-items: center;
-  position: relative;
-  max-width: 115px;
-  min-width: 115px;
-  height: 100px;
-  border-radius: 7px;
-  align-items: flex-start;
-  overflow: hidden;
-`;
+  margin-left: 8px;
 
-export const StatusWrapper = styled.div`
-  margin-top: 15px;
-  background: white;
-  padding: 5px 15px;
-  border-radius: 10px;
-  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-  width: 500px;
-`;
-
-export const StatusHeader = styled.div`
-  display: flex;
-  padding-bottom: 10px;
-  padding-top: 5px;
-  justify-content: space-between;
-`;
-
-export const StatusHeaderProfileImgBox = styled.div`
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 5px;
-
-  & img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  &: hover {
+    background-color: rgba(255, 255, 255, 0.2);
   }
-`;
-
-export const Input = styled.input`
-  padding: 12px;
-  border: none;
-  background: #f0f2f5;
-  border-radius: 100px;
-  padding-left: 35px;
-  padding-left: 15px;
-  width: 420px;
 `;

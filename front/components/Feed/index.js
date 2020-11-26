@@ -1,31 +1,35 @@
 import React from "react";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
+import Card from "@components/Feed/Card";
 
 import {
   FeedWrapper,
   FeedContainer,
-  StatusWrapper,
-  StatusHeader,
-  StatusHeaderProfileImgBox,
-  StoryWrapper,
-  Input,
+  PostBox,
+  PostBtn,
+  Divider,
 } from "@components/Feed/style";
 
 const Feed = () => {
   return (
     <FeedWrapper>
-      <StoryWrapper />
       <FeedContainer>
-        <StatusWrapper>
-          <StatusHeader>
-            <StatusHeaderProfileImgBox>
-              <img
-                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"
-                alt="곽두철"
-              />
-            </StatusHeaderProfileImgBox>
-            <Input placeholder="강민석님" />
-          </StatusHeader>
-        </StatusWrapper>
+        <PostBox>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <Avatar size={40} icon={<UserOutlined />} />
+            <PostBtn>강민석님, 무슨 생각을 하고 계신가요?</PostBtn>
+          </div>
+          <Divider />
+        </PostBox>
+        <Card />
       </FeedContainer>
     </FeedWrapper>
   );

@@ -104,6 +104,10 @@ export const NavigatorContainer = styled.div`
       border-bottom: 2px solid #2d88ff;
       border-bottom-right-radius: 1px;
       border-bottom-left-radius: 1px;
+
+      &:hover {
+        opacity: 0.33;
+      }
     }
   }
 `;
@@ -141,9 +145,16 @@ export const UserWrapper = styled.div`
 `;
 
 export const UserContainer = styled.div`
-  height: 100%;
+  height: 70%;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  border-radius: 20px;
+  width: 90px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 
   & span {
     color: #e4e6eb;
@@ -163,6 +174,10 @@ export const DropDownContainer = styled.div`
   height: 40px;
   border-radius: 100px;
   cursor: pointer;
+
+  &: hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
 `;
 
 export const DropDownIcon = styled(FaCaretDown)`

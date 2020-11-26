@@ -10,8 +10,17 @@ const Home = () => {
   return (
     <>
       <Header />
-      {/* <Social />
-      <Feed /> */}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          paddingTop: "56px",
+        }}
+      >
+        <SideBar />
+        <Feed />
+        <Social />
+      </div>
     </>
   );
 };
