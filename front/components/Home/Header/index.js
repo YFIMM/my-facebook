@@ -21,7 +21,7 @@ import {
   UserContainer,
   DropDownContainer,
   DropDownIcon,
-} from "@components/Header/style";
+} from "@components/Home/Header/style";
 
 const Header = () => {
   return (
@@ -33,7 +33,7 @@ const Header = () => {
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
-            <Input type="text" placeholder="Facebook 검 색" />
+            <Input type="text" placeholder="Facebook 검색" />
           </InputContainer>
         </SearchContainer>
       </SearchWrapper>

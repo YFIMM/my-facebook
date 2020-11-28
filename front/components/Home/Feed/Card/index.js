@@ -11,7 +11,7 @@ import {
   BtnContainer,
   Divider,
   LikeContainer,
-} from "@components/Feed/Card/style";
+} from "@components/Home/Feed/Card/style";
 
 const Card = () => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
-import Card from "@components/Feed/Card";
+import Card from "@components/Home/Feed/Card";
 
 import {
   FeedWrapper,
@@ -10,7 +10,7 @@ import {
   PostBox,
   PostBtn,
   Divider,
-} from "@components/Feed/style";
+} from "@components/Home/Feed/style";
 
 const Feed = () => {
   return (
