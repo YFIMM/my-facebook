@@ -2,7 +2,10 @@ import styled from "styled-components";
 
 export const SideBarWrapper = styled.div`
   border: 1px solid red;
-  flex: 1;
+  display: flex;
+  position: fixed;
+  width: 20%;
+  left: 0;
 
   &:hover {
     overflow-y: scroll;

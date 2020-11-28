@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Avatar } from "antd";
+import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
 import {
@@ -33,7 +33,7 @@ const Header = () => {
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
-            <Input type="text" placeholder="Facebook 검색" />
+            <Input type="text" placeholder="Facebook 검 색" />
           </InputContainer>
         </SearchContainer>
       </SearchWrapper>
@@ -41,25 +41,31 @@ const Header = () => {
         <NavigatorContainer>
           <ul>
             <li>
-              <Link href="/">
-                <a>
-                  <HomeIcon />
-                </a>
-              </Link>
+              <Badge>
+                <Link href="/">
+                  <a>
+                    <HomeIcon />
+                  </a>
+                </Link>
+              </Badge>
             </li>
             <li>
-              <Link href="/">
-                <a>
-                  <PeopleIcon />
-                </a>
-              </Link>
+              <Badge count={5} size="small">
+                <Link href="/">
+                  <a>
+                    <PeopleIcon />
+                  </a>
+                </Link>
+              </Badge>
             </li>
             <li>
-              <Link href="/">
-                <a>
-                  <MessengerIcon />
-                </a>
-              </Link>
+              <Badge count={5} size="small">
+                <Link href="/">
+                  <a>
+                    <MessengerIcon />
+                  </a>
+                </Link>
+              </Badge>
             </li>
           </ul>
         </NavigatorContainer>

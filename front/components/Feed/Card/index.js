@@ -10,7 +10,6 @@ import {
   ImgContainer,
   BtnContainer,
   Divider,
-  Like,
   LikeContainer,
 } from "@components/Feed/Card/style";
 
@@ -61,7 +60,7 @@ const Card = () => {
         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
         minim veniam, quis nostrud exercitation
       </Content>
-      {/* <ImgContainer></ImgContainer> */}
+      <ImgContainer></ImgContainer>
       <Divider />
       <BtnContainer>
         <LikeContainer>
@@ -71,7 +70,6 @@ const Card = () => {
           <span>좋아요</span>
         </LikeContainer>
       </BtnContainer>
-      <Divider />
     </CardWrapper>
   );
 };

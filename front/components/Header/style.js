@@ -16,6 +16,9 @@ export const HeaderBar = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
+  top: 0;
+  left: 0;
 `;
 
 export const SearchWrapper = styled.div`

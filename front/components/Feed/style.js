@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 export const FeedWrapper = styled.div`
   border: 1px solid blue;
-  flex: 2.5;
+  flex: 2.5 2.5 auto;
   display: flex;
   justify-content: center;
 `;
 
 export const FeedContainer = styled.div`
-  width: 70%;
+  width: 50%;
   height: 100%;
 `;
 

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ShowMoreText from "react-show-more-text";
-import { LikeOutlined } from "@ant-design/icons";
 
 export const CardWrapper = styled.div`
   background-color: #242526;
@@ -87,9 +86,4 @@ export const LikeContainer = styled.div`
   &: hover {
     opacity: 0.33;
   }
-`;
-
-export const Like = styled(LikeOutlined)`
-  font-size: 30px;
-  color: rgb(32, 120, 244);
 `;

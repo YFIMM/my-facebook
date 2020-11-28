@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 export const SocialWrapper = styled.div`
   border: 1px solid green;
-  flex: 1;
+  display: flex;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  width: 20%;
 
   &:hover {
     overflow-y: scroll;
