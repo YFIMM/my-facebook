@@ -11,8 +11,7 @@ export const Wrapper = styled.div`
 export const AuthContainer = styled.div`
   display: flex;
   width: 100%;
-  border: 1px solid green;
   height: 70%;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 `;

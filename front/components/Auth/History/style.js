@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   width: 35%;
   height: 100%;
-  border: 1px solid blue;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -39,8 +38,7 @@ export const SmallFontBox = styled.div`
 export const AuthHistoryCardContainer = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  flex-direction: row;
+  justify-content: flex-start;
   margin-top: 15px;
 `;
 
