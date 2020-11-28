@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
 export const LogInContainer = styled.div`
   width: 70%;
-  height: 70%;
+  height: 48%;
   display: flex;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -24,7 +24,7 @@ export const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 `;
 
 export const Input = styled.input`
@@ -36,6 +36,7 @@ export const Input = styled.input`
   background-color: inherit;
   line-height: 16px;
   height: 50px;
+  margin-top: 10px;
 
   &:focus {
     border: 1px solid #1877f2;
@@ -45,7 +46,14 @@ export const Input = styled.input`
   }
 `;
 
-export const Button = styled.div`
+export const Error = styled.div`
+  margin: 3px 0px;
+  height: 15px;
+  font-size: 4px;
+  color: red;
+`;
+
+export const Button = styled.button`
   width: 100%;
   height: 50px;
   background-color: #1877f2;
@@ -57,6 +65,13 @@ export const Button = styled.div`
   text-align: center;
   color: white;
   font-weight: bold;
+  border: none;
+  outline: none;
+  margin: 10px 0px;
+
+  &: hover {
+    opacity: 0.7;
+  }
 `;
 
 export const Divider = styled.div`
@@ -77,4 +92,9 @@ export const GoToBtn = styled.div`
   font-weight: bold;
   border: none;
   border-radius: 6px;
+  margin: 10px 0px;
+
+  &: hover {
+    opacity: 0.7;
+  }
 `;

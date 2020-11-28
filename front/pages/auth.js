@@ -29,7 +29,9 @@ const Auth = () => {
           <LogIn onChangeGoToSignUp={onChangeGoToSignUp} />
         )}
       </AuthContainer>
-      {openModal && <Modal onChangeOpenModal={onChangeOpenModal} />}
+      {openModal && (
+        <Modal openModal={openModal} onChangeOpenModal={onChangeOpenModal} />
+      )}
     </Wrapper>
   );
 };

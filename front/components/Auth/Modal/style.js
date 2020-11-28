@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Avatar } from "antd";
 
 export const Wrapper = styled.div`
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   position: absolute;
   right: 0;
   top: 0;
-  z-index: 400;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,11 +67,27 @@ export const ProfileImg = styled(Avatar)`
   justify-content: center;
 `;
 
-export const Form = styled.form`
+export const Form = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   height: 50%;
   align-items: center;
   justify-content: space-evenly;
+`;
+
+const disappear = keyframes`
+to   { visibility: hidden; }
+`;
+
+export const Error = styled.div`
+  color: red;
+  width: 100%;
+  height: 20px;
+  visibility: visible;
+  font-size: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: ${disappear} 0s 3s forwards;
 `;
