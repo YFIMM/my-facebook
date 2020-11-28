@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { Avatar } from "antd";
+import { ImUser } from "react-icons/im";
 
 export const Wrapper = styled.div`
   width: 35%;
@@ -80,6 +82,22 @@ export const AuthHistoryCard = styled.div`
     height: 80%;
     object-fit: cover;
   }
+`;
+
+export const ProfileImg = styled(Avatar)`
+  width: 100%;
+  height: 80%;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: #dddfe2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const UserImg = styled(ImUser)`
+  font-size: 140px;
+  color: #fff;
 `;
 
 export const UsernameBox = styled.div`
