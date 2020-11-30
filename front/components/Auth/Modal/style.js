@@ -1,21 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Avatar, Form, Input, Button } from "antd";
 
-export const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  left: 0;
-  min-height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const FormContainer = styled.div`
   width: 100%;
   height: 100%;
