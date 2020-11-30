@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const dotenv = require("dotenv");
 
-const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+const { isNotLoggedIn } = require("./middlewares");
 
 const User = require("../models/User");
 
@@ -13,7 +13,7 @@ const router = express.Router();
 dotenv.config();
 
 //회원가입
-router.post("/", async (req, res, next) => {
+router.post("/", isNotLoggedIn, async (req, res, next) => {
   try {
     const exUser = await User.findOne({
       where: {
@@ -27,7 +27,7 @@ router.post("/", async (req, res, next) => {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
-    const user = await User.create({
+    await User.create({
       email: req.body.email,
       name: req.body.name,
       password: hashedPassword,
@@ -40,6 +40,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+//로그인
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     if (err) {
@@ -62,13 +63,11 @@ router.post("/login", (req, res, next) => {
 
       const token = await jwt.sign(exUser.toJSON(), process.env.JWT_SECRET);
 
-      return res.status(200).json({ exUser, token });
+      res.cookie("token", token);
+
+      return res.status(200).json({ exUser });
     });
   })(req, res, next);
-});
-
-router.get("/", isNotLoggedIn, (req, res, next) => {
-  console.log("HI: ");
 });
 
 module.exports = router;

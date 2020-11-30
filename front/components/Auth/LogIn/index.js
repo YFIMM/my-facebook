@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { message } from "antd";
 import axios from "axios";
 
+import { SERVER } from "env";
+
 import useInput from "@hooks/useInput";
 
 import {
@@ -28,7 +30,19 @@ const LogIn = ({ onChangeGoToSignUp }) => {
         return;
       }
 
-      //http 요청
+      axios
+        .post(
+          `${SERVER}/auth/login`,
+          { email, password },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          message.success(`안녕하세요 ${res.data.exUser.name}님`);
+        })
+        .catch((err) => message.error(err.response.data));
     },
     [email, password]
   );

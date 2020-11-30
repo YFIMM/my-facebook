@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { message } from "antd";
 import axios from "axios";
 
+import { SERVER } from "env";
+
 import useInput from "@hooks/useInput";
 
 import {
@@ -43,7 +45,12 @@ const SignUp = ({ onChangeGoToSignUp }) => {
       }
 
       if (!mismatchError) {
-        //http 요청
+        axios
+          .post(`${SERVER}/auth`, { name, email, password })
+          .then(() =>
+            message.success("회원가입이 완료되었습니다. 로그인을 해주세요", 2.5)
+          )
+          .catch((err) => message.error(err.response.data));
       } else {
         message.error("비밀번호가 일치하지 않습니다.", 2.5);
         return;
