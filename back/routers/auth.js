@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const dotenv = require("dotenv");
 
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
+
 const User = require("../models/User");
 
 const router = express.Router();
@@ -63,6 +65,10 @@ router.post("/login", (req, res, next) => {
       return res.status(200).json({ exUser, token });
     });
   })(req, res, next);
+});
+
+router.get("/", isNotLoggedIn, (req, res, next) => {
+  console.log("HI: ");
 });
 
 module.exports = router;

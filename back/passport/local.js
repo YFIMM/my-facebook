@@ -41,8 +41,24 @@ module.exports = () => {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.JWT_SECRET,
       },
-      async (jwtPayload, cb) => {
-        console.log("jwtPayload", jwtPayload);
+      async (jwtPayload, done) => {
+        try {
+          const exUser = await User.findOne({
+            where: {
+              id: jwtPayload.id,
+              name: jwtPayload.name,
+              email: jwtPayload.email,
+            },
+          });
+
+          if (exUser) {
+            return done(null, exUser);
+          } else {
+            return done(null, false, { reason: "존재하지 않은 아이디입니다." });
+          }
+        } catch (error) {
+          return done(error);
+        }
       }
     )
   );
