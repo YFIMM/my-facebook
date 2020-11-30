@@ -16,7 +16,7 @@ module.exports = class User extends Model {
           unique: true, // 고유한 값
         },
         password: {
-          type: DataTypes.STRING(100),
+          type: DataTypes.STRING(200),
           allowNull: false, // 필수
         },
       },
