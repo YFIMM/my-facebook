@@ -56,6 +56,8 @@ export const BtnContainer = styled.div`
   width: 100%;
   height: 50px;
   padding-left: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 export const Divider = styled.div`

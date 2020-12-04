@@ -34,9 +34,11 @@ app.use(cookieParser());
 
 const authAPIRouter = require("./routers/auth");
 const userAPIRouter = require("./routers/user");
+const postAPIRouter = require("./routers/post");
 
 app.use("/api/auth", authAPIRouter);
 app.use("/api/user", userAPIRouter);
+app.use("/api/post", postAPIRouter);
 
 app.listen(app.get("PORT"), () => {
   console.log(`listening on port ${app.get("PORT")}`);
