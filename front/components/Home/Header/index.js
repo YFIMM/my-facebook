@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import PropTypes from "prop-types";
 import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 
@@ -23,7 +24,7 @@ import {
   DropDownIcon,
 } from "@components/Home/Header/style";
 
-const Header = () => {
+const Header = ({ username }) => {
   return (
     <HeaderBar>
       <SearchWrapper>
@@ -74,7 +75,7 @@ const Header = () => {
         <div>
           <UserContainer>
             <Avatar size={30} icon={<UserOutlined />} />
-            <span>강민석</span>
+            <span>{username}</span>
           </UserContainer>
           <DropDownContainer>
             <DropDownIcon />
@@ -83,6 +84,10 @@ const Header = () => {
       </UserWrapper>
     </HeaderBar>
   );
+};
+
+Header.propTypes = {
+  username: PropTypes.string.isRequired,
 };
 
 export default Header;

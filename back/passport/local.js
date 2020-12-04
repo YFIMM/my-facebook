@@ -42,6 +42,7 @@ module.exports = () => {
         secretOrKey: process.env.JWT_SECRET,
       },
       async (jwtPayload, done) => {
+        console.log("JWT 1");
         if (jwtPayload) {
           return done(null, jwtPayload);
         } else {

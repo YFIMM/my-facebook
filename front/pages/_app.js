@@ -5,7 +5,7 @@ import _JSXStyle from "styled-jsx/style";
 
 import "antd/dist/antd.css";
 
-const MyApp = ({ Component }) => {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <>
       <style jsx global>{`
@@ -31,7 +31,7 @@ const MyApp = ({ Component }) => {
         />
         <title>Facebook - 로그인 또는 가입</title>
       </Head>
-      <Component />
+      <Component {...pageProps} />
     </>
   );
 };
