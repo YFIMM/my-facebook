@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
+import Router from "next/router";
 import axios from "axios";
 
 import { SERVER } from "env";
@@ -39,7 +40,7 @@ const LogIn = ({ onChangeGoToSignUp }) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          Router.replace("/");
           message.success(`안녕하세요 ${res.data.exUser.name}님`);
         })
         .catch((err) => message.error(err.response.data));

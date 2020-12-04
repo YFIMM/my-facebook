@@ -1,6 +1,11 @@
 import React, { useState, useCallback } from "react";
+import axios from "axios";
 
 import { Wrapper, AuthContainer } from "@style/Auth";
+
+import { SERVER } from "env";
+
+import fetcher from "@utils/fetcher";
 
 import History from "@components/Auth/History";
 import LogIn from "@components/Auth/LogIn";
@@ -35,5 +40,26 @@ const Auth = () => {
     </Wrapper>
   );
 };
+
+export async function getServerSideProps(context) {
+  const cookie = context.req ? context.req.headers.cookie : "";
+  axios.defaults.headers.Cookie = "";
+
+  if (context.req && cookie) {
+    axios.defaults.headers.Cookie = cookie;
+  }
+
+  const userData = await fetcher(`${SERVER}/user`);
+
+  if (userData) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
+}
 
 export default Auth;
