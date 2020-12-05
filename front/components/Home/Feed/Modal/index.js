@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 import useInput from "@hooks/useInput";
 
+import { SERVER } from "env";
+
 import {
   BodyWrapper,
   AvatarContainer,

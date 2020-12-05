@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const passport = require("passport");
+const path = require("path");
 const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 
@@ -28,6 +28,7 @@ app.use(
     credentials: true,
   })
 );
+app.use("/", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

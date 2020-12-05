@@ -41,12 +41,6 @@ export const Content = styled(ShowMoreText)`
   line-height: 1.3333;
 `;
 
-export const ImgContainer = styled.div`
-  background-color: inherit;
-  max-height: 500px;
-  width: 100%;
-`;
-
 export const BtnContainer = styled.div`
   background-color: inherit;
   color: inherit;
