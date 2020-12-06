@@ -16,6 +16,7 @@ exports.isLoggedIn = (req, res, next) => {
     if (!req.user) {
       req.user = payload;
     }
+
     next();
   } catch (error) {
     return res.status(401).send(error);

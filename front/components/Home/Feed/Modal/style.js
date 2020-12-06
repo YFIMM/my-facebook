@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BodyWrapper = styled.div`
   width: 100%;
   max-height: 530px;
-  height: 370px;
+  height: ${(props) => props.height};
   display: flex;
   flex-direction: column;
 `;
@@ -42,7 +42,6 @@ export const Textarea = styled.textarea`
   border: none;
   width: 100%;
   height: 130px;
-  max-height: 338px;
   overflow-y: auto;
   overflow-x: hidden;
   resize: none;

@@ -1,7 +1,8 @@
 const express = require("express");
-const passport = require("passport");
 const multer = require("multer");
 const path = require("path");
+
+const { isLoggedIn } = require("./middlewares");
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ const upload = multer({
 
 router.post(
   "/images",
-  passport.authenticate("jwt", { session: false }),
+  isLoggedIn,
   upload.array("image"),
   async (req, res, next) => {
     console.log(req.files);

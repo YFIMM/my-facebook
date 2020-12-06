@@ -32,11 +32,11 @@ const Home = ({ userData }) => {
 };
 
 export async function getServerSideProps(context) {
-  const cookie = context.req ? context.req.headers.cookie : "";
+  const accessToken = context.req ? context.req.headers.cookie : "";
   axios.defaults.headers.Cookie = "";
 
-  if (context.req && cookie) {
-    axios.defaults.headers.Cookie = cookie;
+  if (context.req && accessToken) {
+    axios.defaults.headers.Cookie = accessToken;
   }
 
   const userData = await fetcher(`${SERVER}/user`);
@@ -49,6 +49,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
   return { props: { userData } };
 }
 

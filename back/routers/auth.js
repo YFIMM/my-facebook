@@ -41,7 +41,7 @@ router.post("/", isNotLoggedIn, async (req, res, next) => {
 });
 
 //로그인
-router.post("/login", (req, res, next) => {
+router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local", { session: false }, (err, user, info) => {
     if (err) {
       console.error(err);
@@ -63,8 +63,8 @@ router.post("/login", (req, res, next) => {
 
       const accessToken = await jwt.sign(
         exUser.toJSON(),
-        process.env.JWT_SECRET,
-        { expiresIn: "7s" }
+        process.env.JWT_SECRET
+        // { expiresIn: "1h" } 나중에 세팅
       );
 
       res.cookie("accessToken", accessToken);
