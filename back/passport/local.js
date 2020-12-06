@@ -1,5 +1,4 @@
 const passport = require("passport");
-const { ExtractJwt, Strategy: JWTStrategy } = require("passport-jwt");
 const { Strategy: LocalStrategy } = require("passport-local");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
@@ -31,21 +30,6 @@ module.exports = () => {
         } catch (error) {
           console.error(error);
           return done(error);
-        }
-      }
-    )
-  );
-  passport.use(
-    new JWTStrategy(
-      {
-        jwtFromRequest: (req) => req.cookies.token,
-        secretOrKey: process.env.JWT_SECRET,
-      },
-      async (jwtPayload, done) => {
-        if (jwtPayload) {
-          return done(null, jwtPayload);
-        } else {
-          return done(null, false);
         }
       }
     )

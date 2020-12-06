@@ -61,9 +61,13 @@ router.post("/login", (req, res, next) => {
         attributes: ["id", "name", "email"],
       });
 
-      const token = await jwt.sign(exUser.toJSON(), process.env.JWT_SECRET);
+      const accessToken = await jwt.sign(
+        exUser.toJSON(),
+        process.env.JWT_SECRET,
+        { expiresIn: "7s" }
+      );
 
-      res.cookie("token", token);
+      res.cookie("accessToken", accessToken);
 
       return res.status(200).json({ exUser });
     });
