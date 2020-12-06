@@ -65,6 +65,7 @@ const Feed = ({ username }) => {
             username={username}
             onChangeImages={onChangeImages}
             imagePaths={imagePaths}
+            setImagePaths={setImagePaths}
           />
           <Divider />
         </PostBox>

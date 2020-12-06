@@ -10,8 +10,6 @@ import {
 } from "@components/Home/Feed/Modal/Img/style";
 
 const Img = ({ imagePaths }) => {
-  console.log("test", imagePaths.length);
-
   if (imagePaths.length > 5) {
     let marginRight = 0;
 

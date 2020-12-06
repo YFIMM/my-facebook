@@ -1,5 +1,5 @@
-import React, { useCallback, useRef, useEffect, useState } from "react";
-import { Modal, Avatar } from "antd";
+import React, { useCallback, useRef } from "react";
+import { Modal, Avatar, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -29,6 +29,7 @@ const CustomModal = ({
   username,
   onChangeImages,
   imagePaths,
+  setImagePaths,
 }) => {
   const imageInput = useRef();
 
@@ -41,7 +42,39 @@ const CustomModal = ({
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(imagePaths.length);
+
+      if (!post || !post.trim()) {
+        return message.error("게시글을 작성해주세요", 2.5);
+      }
+
+      if (imagePaths.length > 0) {
+        const formData = new FormData();
+
+        imagePaths.forEach((i) => {
+          formData.append("image", i);
+        });
+
+        formData.append("content", post);
+
+        axios
+          .post(`${SERVER}/post`, formData, { withCredentials: true })
+          .then(() => {
+            setPost("");
+            setImagePaths([]);
+            onToggleOpenModal();
+            message.success("게시글 작성이 완료되었습니다.", 2.5);
+          })
+          .catch((err) => console.error(err));
+      } else {
+        axios
+          .post(`${SERVER}/post`, { content: post }, { withCredentials: true })
+          .then(() => {
+            setPost("");
+            onToggleOpenModal();
+            message.success("게시글 작성이 완료되었습니다.", 2.5);
+          })
+          .catch((err) => console.error(err));
+      }
     },
     [post, imagePaths]
   );
@@ -59,6 +92,7 @@ const CustomModal = ({
       }}
       destroyOnClose={true}
       preserve={false}
+      afterClose={() => setImagePaths([])}
     >
       <BodyWrapper height={imagePaths.length > 0 ? "560px" : "330px"}>
         <AvatarContainer>
