@@ -9,8 +9,10 @@ import {
   MoreImages,
 } from "@components/Home/Feed/Modal/Img/style";
 
-const Img = ({ images }) => {
-  if (images.length > 5) {
+const Img = ({ imagePaths }) => {
+  console.log("test", imagePaths.length);
+
+  if (imagePaths.length > 5) {
     let marginRight = 0;
 
     return (
@@ -34,11 +36,17 @@ const Img = ({ images }) => {
               >
                 {i === 4 ? (
                   <>
-                    <Image src={images[i]} alt={images[i]} />
-                    <MoreImages>{`+${images.length - 5}장`}</MoreImages>
+                    <Image
+                      src={`http://localhost:5003/${imagePaths[i]}`}
+                      alt={imagePaths[i]}
+                    />
+                    <MoreImages>{`+${imagePaths.length - 5}장`}</MoreImages>
                   </>
                 ) : (
-                  <Image src={images[i]} alt={images[i]} />
+                  <Image
+                    src={`http://localhost:5003/${imagePaths[i]}`}
+                    alt={imagePaths[i]}
+                  />
                 )}
               </OddBox>
             );
@@ -50,30 +58,30 @@ const Img = ({ images }) => {
 
   return (
     <Wrapper>
-      <ImgWrapper height={images.length > 1 ? "500px" : "100%"}>
-        {images.map((v, i) => {
-          if (images.length === 1) {
+      <ImgWrapper height={imagePaths.length > 1 ? "500px" : "100%"}>
+        {imagePaths.map((v, i) => {
+          if (imagePaths.length === 1) {
             return (
               <OddBox key={i} width="100%" height="100%">
-                <Image src={v} alt={v} />
+                <Image src={`http://localhost:5003/${v}`} alt={v} />
               </OddBox>
             );
-          } else if (images.length === 2 || images.length === 4) {
+          } else if (imagePaths.length === 2 || imagePaths.length === 4) {
             return (
               <EvenBox
                 key={i}
-                width={100 / images.length === 50 ? "100%" : "49.5%"}
-                height={100 / images.length === 25 ? "49.5%" : "49.5%"}
+                width={100 / imagePaths.length === 50 ? "100%" : "49.5%"}
+                height={100 / imagePaths.length === 25 ? "49.5%" : "49.5%"}
                 marginLeft={
-                  (i === 1 || i === 3) && 100 / images.length === 25 && "1%"
+                  (i === 1 || i === 3) && 100 / imagePaths.length === 25 && "1%"
                 }
                 marginTop={(i === 2 || i === 3) && "1%"}
-                marginBottom={i === 0 && 100 / images.length === 50 && "1%"}
+                marginBottom={i === 0 && 100 / imagePaths.length === 50 && "1%"}
               >
-                <Image src={v} alt={v} />
+                <Image src={`http://localhost:5003/${v}`} alt={v} />
               </EvenBox>
             );
-          } else if (images.length === 3) {
+          } else if (imagePaths.length === 3) {
             return (
               <OddBox
                 marginRight={i === 0 && "1%"}
@@ -82,10 +90,10 @@ const Img = ({ images }) => {
                 height={i === 0 ? "100%" : "49.8%"}
                 marginBottom={(i === 1 || i === 2) && "0.4%"}
               >
-                <Image src={v} alt={v} />
+                <Image src={`http://localhost:5003/${v}`} alt={v} />
               </OddBox>
             );
-          } else if (images.length === 5) {
+          } else if (imagePaths.length === 5) {
             let marginRight = 0;
             if (i === 0) {
               marginRight = 0.25;
@@ -102,7 +110,7 @@ const Img = ({ images }) => {
                 marginBottom="0.25%"
                 marginLeft={i === 3 && "0.5%"}
               >
-                <Image src={v} alt={v} />
+                <Image src={`http://localhost:5003/${v}`} alt={v} />
               </OddBox>
             );
           }

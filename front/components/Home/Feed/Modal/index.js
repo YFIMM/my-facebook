@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useEffect, useState } from "react";
 import { Modal, Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -23,24 +23,16 @@ import {
   Form,
 } from "@components/Home/Feed/Modal/style";
 
-const CustomModal = ({ openModal, onToggleOpenModal, username }) => {
+const CustomModal = ({
+  openModal,
+  onToggleOpenModal,
+  username,
+  onChangeImages,
+  imagePaths,
+}) => {
   const imageInput = useRef();
 
-  const images = [
-    "http://localhost:5003/1.png",
-    "http://localhost:5003/2.png",
-    "http://localhost:5003/3.png",
-    "http://localhost:5003/13.png",
-    "http://localhost:5003/14.jpg",
-    "http://localhost:5003/1.png",
-    "http://localhost:5003/2.png",
-    "http://localhost:5003/3.png",
-    "http://localhost:5003/13.png",
-    "http://localhost:5003/14.jpg",
-  ];
-
-  const [imagePaths, onChangImagePaths] = useInput([]);
-  const [post, onChangePost] = useInput("");
+  const [post, onChangePost, setPost] = useInput("");
 
   const onClickImageUpload = useCallback(() => {
     imageInput.current.click();
@@ -49,9 +41,9 @@ const CustomModal = ({ openModal, onToggleOpenModal, username }) => {
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(post);
+      console.log(imagePaths.length);
     },
-    [post]
+    [post, imagePaths]
   );
 
   return (
@@ -62,11 +54,13 @@ const CustomModal = ({ openModal, onToggleOpenModal, username }) => {
       onCancel={onToggleOpenModal}
       bodyStyle={{
         padding: "0px 24px",
-        height: images.length > 0 ? "560px" : "330px",
+        height: imagePaths.length > 0 ? "560px" : "330px",
         overflowY: "auto",
       }}
+      destroyOnClose={true}
+      preserve={false}
     >
-      <BodyWrapper height={images.length > 0 ? "560px" : "330px"}>
+      <BodyWrapper height={imagePaths.length > 0 ? "560px" : "330px"}>
         <AvatarContainer>
           <Avatar size={40} icon={<UserOutlined />} />
           <Span>{username}</Span>
@@ -77,8 +71,15 @@ const CustomModal = ({ openModal, onToggleOpenModal, username }) => {
             value={post}
             onChange={onChangePost}
           />
-          {images.length > 0 && <Img images={images} />}
-          <input type="file" name="image" hidden multiple ref={imageInput} />
+          {imagePaths.length > 0 && <Img imagePaths={imagePaths} />}
+          <input
+            type="file"
+            name="image"
+            hidden
+            multiple
+            ref={imageInput}
+            onChange={onChangeImages}
+          />
           <IconContainer>
             <FontBox>게시물에 추가</FontBox>
             <IconBox>
