@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar } from "antd";
+import PropTypes from "prop-types";
 import { UserOutlined, LikeOutlined } from "@ant-design/icons";
 
 import Img from "@components/Home/Feed/Card/Img";
@@ -14,14 +15,14 @@ import {
   LikeContainer,
 } from "@components/Home/Feed/Card/style";
 
-const Card = () => {
+const Card = ({ content, name, images }) => {
   return (
     <CardWrapper>
       <ProfileContainer>
         <Avatar size={40} icon={<UserOutlined />} />
         <UsernameContainer>
           <span style={{ fontSize: "15px", fontWeight: 600, height: "20px" }}>
-            강민석
+            {name}
           </span>
           <span style={{ fontSize: "13px", height: "18px" }}>1분</span>
         </UsernameContainer>
@@ -33,9 +34,9 @@ const Card = () => {
           return;
         }}
       >
-        안녕하세요
+        {content}
       </Content>
-      <Img />
+      {images.length > 0 && <Img images={images} />}
       <Divider />
       <BtnContainer>
         <LikeContainer>
@@ -47,6 +48,12 @@ const Card = () => {
       </BtnContainer>
     </CardWrapper>
   );
+};
+
+Card.propTypes = {
+  content: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  images: PropTypes.array,
 };
 
 export default Card;

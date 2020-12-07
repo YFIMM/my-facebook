@@ -131,6 +131,9 @@ CustomModal.propTypes = {
   openModal: PropTypes.bool.isRequired,
   onToggleOpenModal: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
+  onChangeImages: PropTypes.func.isRequired,
+  imagePaths: PropTypes.array.isRequired,
+  setImagePaths: PropTypes.func.isRequired,
 };
 
 export default CustomModal;

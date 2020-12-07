@@ -12,7 +12,7 @@ import SideBar from "@components/Home/SideBar";
 import Feed from "@components/Home/Feed";
 import Social from "@components/Home/Social";
 
-const Home = ({ userData }) => {
+const Home = ({ userData, posts }) => {
   return (
     <>
       <Header username={userData.name} />
@@ -24,7 +24,7 @@ const Home = ({ userData }) => {
         }}
       >
         <SideBar />
-        <Feed username={userData.name} />
+        <Feed username={userData.name} posts={posts} />
         <Social />
       </div>
     </>
@@ -50,7 +50,9 @@ export async function getServerSideProps(context) {
     };
   }
 
-  return { props: { userData } };
+  const posts = await fetcher(`${SERVER}/posts`);
+
+  return { props: { userData, posts } };
 }
 
 export default Home;

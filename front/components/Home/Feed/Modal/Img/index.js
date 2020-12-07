@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
   Wrapper,
@@ -116,6 +117,10 @@ const Img = ({ imagePaths }) => {
       </ImgWrapper>
     </Wrapper>
   );
+};
+
+Img.propTypes = {
+  imagePaths: PropTypes.array.isRequired,
 };
 
 export default Img;
