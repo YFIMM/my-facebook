@@ -75,6 +75,7 @@ const Feed = ({ username, posts }) => {
             content={v.content}
             name={v.User.name}
             images={v.Images}
+            createdAt={v.createdAt}
           />
         ))}
       </FeedContainer>
