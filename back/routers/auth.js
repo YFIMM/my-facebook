@@ -65,6 +65,11 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
             as: "Followings",
             attributes: ["id"],
           },
+          {
+            model: User,
+            as: "Followers",
+            attributes: ["id"],
+          },
         ],
       });
 

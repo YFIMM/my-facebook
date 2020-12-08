@@ -17,7 +17,7 @@ import {
   Divider,
 } from "@components/Home/Feed/style";
 
-const Feed = ({ username, posts, userId }) => {
+const Feed = ({ username, posts, userData }) => {
   const [openModal, setOpenModal] = useState(false);
   const [imagePaths, setImagePaths] = useState([]);
 
@@ -77,8 +77,10 @@ const Feed = ({ username, posts, userId }) => {
             images={v.Images}
             createdAt={v.createdAt}
             postId={v.id}
-            userId={userId}
+            userId={userData.id}
             likers={v.Likers}
+            postUserId={v.UserId}
+            followerList={v.User.Followers}
           />
         ))}
       </FeedContainer>
@@ -89,7 +91,7 @@ const Feed = ({ username, posts, userId }) => {
 Feed.propTypes = {
   username: PropTypes.string.isRequired,
   posts: PropTypes.array.isRequired,
-  userId: PropTypes.number.isRequired,
+  userData: PropTypes.object.isRequired,
 };
 
 export default Feed;

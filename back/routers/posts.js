@@ -9,7 +9,17 @@ router.get("/", async (req, res, next) => {
     const posts = await Post.findAll({
       order: [["createdAt", "DESC"]],
       include: [
-        { model: User, attributes: ["id", "name"] },
+        {
+          model: User,
+          attributes: ["id", "name"],
+          include: [
+            {
+              model: User,
+              as: "Followers",
+              attributes: ["id"],
+            },
+          ],
+        },
         { model: Image, attributes: ["src", "id"] },
         { model: User, attributes: ["id"], as: "Likers" },
       ],

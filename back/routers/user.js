@@ -24,4 +24,17 @@ router.patch("/:userId/follow", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.delete("/:userId/follow", isLoggedIn, async (req, res, next) => {
+  try {
+    const user = await User.findOne({ where: { id: req.params.userId } });
+    if (!user) {
+      res.status(403).send("없는 사람을 언팔로우하려고 하시네요?");
+    }
+    await user.removeFollowers(req.user.id);
+    res.send("ok");
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

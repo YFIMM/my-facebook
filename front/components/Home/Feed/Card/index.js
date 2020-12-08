@@ -10,6 +10,7 @@ import {
   LikeOutlined,
   EllipsisOutlined,
   UserAddOutlined,
+  UserDeleteOutlined,
 } from "@ant-design/icons";
 
 import Img from "@components/Home/Feed/Card/Img";
@@ -30,9 +31,22 @@ import {
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
-const Card = ({ content, name, images, createdAt, postId, userId, likers }) => {
+const Card = ({
+  content,
+  name,
+  images,
+  createdAt,
+  postId,
+  userId,
+  likers,
+  postUserId,
+  followerList,
+}) => {
   const [like, setLike] = useState(
     likers.find((v) => v.id === userId) ? true : false
+  );
+  const [followed, setFollowed] = useState(
+    followerList.find((v) => v.id === userId) ? true : false
   );
 
   const onLike = useCallback(() => {
@@ -50,21 +64,48 @@ const Card = ({ content, name, images, createdAt, postId, userId, likers }) => {
   }, [like]);
 
   const onClickMenu = useCallback(({ key }) => {
-    if (key === "logout") {
+    if (key === "follow") {
+      axios
+        .patch(
+          `${SERVER}/user/${postUserId}/follow`,
+          {},
+          { withCredentials: true }
+        )
+        .then(() => setFollowed((prev) => !prev))
+        .catch((err) => console.error(err));
+    } else if (key === "unfollow") {
+      axios
+        .delete(`${SERVER}/user/${postUserId}/follow`, {
+          withCredentials: true,
+        })
+        .then(() => setFollowed((prev) => !prev))
+        .catch((err) => console.error(err));
     }
   }, []);
 
   const menu = (
     <Menu onClick={onClickMenu}>
-      <Menu.Item
-        key="follow"
-        icon={
-          <UserAddOutlined style={{ fontSize: "18px", color: "#2d88ff" }} />
-        }
-        style={{ color: "#2d88ff", width: "180px" }}
-      >
-        팔로잉 하기
-      </Menu.Item>
+      {!followed ? (
+        <Menu.Item
+          key="follow"
+          icon={
+            <UserAddOutlined style={{ fontSize: "18px", color: "#2d88ff" }} />
+          }
+          style={{ color: "#2d88ff", width: "180px" }}
+        >
+          팔로잉 하기
+        </Menu.Item>
+      ) : (
+        <Menu.Item
+          key="unfollow"
+          icon={
+            <UserDeleteOutlined style={{ fontSize: "18px", color: "red" }} />
+          }
+          style={{ color: "red", width: "180px" }}
+        >
+          언팔로우 하기
+        </Menu.Item>
+      )}
     </Menu>
   );
 
@@ -120,6 +161,8 @@ Card.propTypes = {
   postId: PropTypes.number.isRequired,
   userId: PropTypes.number.isRequired,
   likers: PropTypes.array.isRequired,
+  postUserId: PropTypes.number.isRequired,
+  followerList: PropTypes.array.isRequired,
 };
 
 export default Card;

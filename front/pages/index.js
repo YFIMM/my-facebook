@@ -24,7 +24,7 @@ const Home = ({ userData, posts }) => {
         }}
       >
         <SideBar />
-        <Feed userId={userData.id} username={userData.name} posts={posts} />
+        <Feed userData={userData} username={userData.name} posts={posts} />
         <Social />
       </div>
     </>
