@@ -13,7 +13,6 @@ import Feed from "@components/Home/Feed";
 import Social from "@components/Home/Social";
 
 const Home = ({ userData, posts }) => {
-  console.log(posts);
   return (
     <>
       <Header username={userData.name} />

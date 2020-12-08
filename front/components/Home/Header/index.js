@@ -50,24 +50,13 @@ const Header = ({ username }) => {
                   router.pathname === "/" ? "2px solid #2d88ff" : "none",
               }}
             >
-              <Badge>
-                <Link href="/">
-                  <a>
-                    <HomeIcon
-                      color={router.pathname === "/" ? "#2d88ff" : "#606770"}
-                    />
-                  </a>
-                </Link>
-              </Badge>
-            </li>
-            <li>
-              <Badge count={5} size="small">
-                <Link href="/">
-                  <a>
-                    <PeopleIcon />
-                  </a>
-                </Link>
-              </Badge>
+              <Link href="/">
+                <a>
+                  <HomeIcon
+                    color={router.pathname === "/" ? "#2d88ff" : "#606770"}
+                  />
+                </a>
+              </Link>
             </li>
             <li
               style={{
@@ -77,17 +66,15 @@ const Header = ({ username }) => {
                     : "none",
               }}
             >
-              <Badge count={5} size="small">
-                <Link href="/messenger">
-                  <a>
-                    <MessengerIcon
-                      color={
-                        router.pathname === "/messenger" ? "#2d88ff" : "#606770"
-                      }
-                    />
-                  </a>
-                </Link>
-              </Badge>
+              <Link href="/messenger">
+                <a>
+                  <MessengerIcon
+                    color={
+                      router.pathname === "/messenger" ? "#2d88ff" : "#606770"
+                    }
+                  />
+                </a>
+              </Link>
             </li>
           </ul>
         </NavigatorContainer>

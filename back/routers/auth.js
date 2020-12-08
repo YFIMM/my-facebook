@@ -59,6 +59,13 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
       const exUser = await User.findOne({
         where: { id: user.id },
         attributes: ["id", "name", "email"],
+        include: [
+          {
+            model: User,
+            as: "Followings",
+            attributes: ["id"],
+          },
+        ],
       });
 
       const accessToken = await jwt.sign(
