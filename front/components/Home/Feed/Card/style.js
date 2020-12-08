@@ -20,6 +20,7 @@ export const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
   padding-left: 8px;
+  justify-content: space-around;
 `;
 
 export const UsernameContainer = styled.div`
@@ -29,6 +30,16 @@ export const UsernameContainer = styled.div`
   justify-content: flex-start;
   height: 100%;
   padding-left: 4px;
+  width: 50%;
+`;
+
+export const EllipsisContainer = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 4px;
 `;
 
 export const Content = styled(ShowMoreText)`

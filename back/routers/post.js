@@ -70,4 +70,18 @@ router.patch("/:postId/like", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.delete("/:postId/like", isLoggedIn, async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ where: { id: req.params.postId } });
+    if (!post) {
+      return res.status(403).send("게시글이 존재하지 않습니다.");
+    }
+
+    await post.removeLikers(req.user.id);
+    res.send("ok");
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

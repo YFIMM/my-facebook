@@ -34,7 +34,6 @@ const Header = ({ username }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
 
   const onClickMenu = useCallback(({ key }) => {
-    console.log(key);
     if (key === "logout") {
       axios
         .post(`${SERVER}/auth/logout`, {}, { withCredentials: true })
@@ -66,7 +65,7 @@ const Header = ({ username }) => {
         <SearchContainer>
           <InputContainer>
             <SearchIcon />
-            <Input type="text" placeholder="Facebook 검색" />
+            <Input type="text" placeholder="친구 찾기" />
           </InputContainer>
         </SearchContainer>
       </SearchWrapper>

@@ -1,11 +1,16 @@
-import React, { useCallback } from "react";
-import { Avatar, message } from "antd";
+import React, { useCallback, useState } from "react";
+import { Avatar, message, Dropdown, Menu } from "antd";
 import PropTypes from "prop-types";
 import axios from "axios";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
-import { UserOutlined, LikeOutlined } from "@ant-design/icons";
+import {
+  UserOutlined,
+  LikeOutlined,
+  EllipsisOutlined,
+  UserAddOutlined,
+} from "@ant-design/icons";
 
 import Img from "@components/Home/Feed/Card/Img";
 
@@ -19,19 +24,49 @@ import {
   BtnContainer,
   Divider,
   LikeContainer,
+  EllipsisContainer,
 } from "@components/Home/Feed/Card/style";
 
 dayjs.locale("ko");
 dayjs.extend(relativeTime);
 
 const Card = ({ content, name, images, createdAt, postId, userId, likers }) => {
-  const liked = likers.find((v) => v.id === userId);
+  const [like, setLike] = useState(
+    likers.find((v) => v.id === userId) ? true : false
+  );
 
   const onLike = useCallback(() => {
-    axios
-      .patch(`${SERVER}/post/${postId}/like`, {}, { withCredentials: true })
-      .catch((err) => message.error(err, 2.5));
+    if (!like) {
+      axios
+        .patch(`${SERVER}/post/${postId}/like`, {}, { withCredentials: true })
+        .then(() => setLike((prev) => !prev))
+        .catch((err) => message.error(err, 2.5));
+    } else {
+      axios
+        .delete(`${SERVER}/post/${postId}/like`, { withCredentials: true })
+        .then(() => setLike((prev) => !prev))
+        .catch((err) => console.error(err));
+    }
+  }, [like]);
+
+  const onClickMenu = useCallback(({ key }) => {
+    if (key === "logout") {
+    }
   }, []);
+
+  const menu = (
+    <Menu onClick={onClickMenu}>
+      <Menu.Item
+        key="follow"
+        icon={
+          <UserAddOutlined style={{ fontSize: "18px", color: "#2d88ff" }} />
+        }
+        style={{ color: "#2d88ff", width: "180px" }}
+      >
+        팔로잉 하기
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <CardWrapper>
@@ -45,6 +80,11 @@ const Card = ({ content, name, images, createdAt, postId, userId, likers }) => {
             {dayjs(createdAt).fromNow()}
           </span>
         </UsernameContainer>
+        <EllipsisContainer>
+          <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
+            <EllipsisOutlined />
+          </Dropdown>
+        </EllipsisContainer>
       </ProfileContainer>
       <Content
         lines={4}
@@ -61,7 +101,7 @@ const Card = ({ content, name, images, createdAt, postId, userId, likers }) => {
         <LikeContainer
           onClick={onLike}
           style={{
-            color: liked ? "rgb(32, 120, 244)" : "#e4e6eb",
+            color: like ? "rgb(32, 120, 244)" : "#e4e6eb",
           }}
         >
           <LikeOutlined style={{ fontSize: "1.3rem", color: "inherit" }} />

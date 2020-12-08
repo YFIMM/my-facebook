@@ -3,6 +3,7 @@ import { Modal, Avatar, message } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import axios from "axios";
+import Router from "next/router";
 
 import useInput from "@hooks/useInput";
 
@@ -63,6 +64,7 @@ const CustomModal = ({
             setImagePaths([]);
             onToggleOpenModal();
             message.success("게시글 작성이 완료되었습니다.", 2.5);
+            Router.replace("/");
           })
           .catch((err) => console.error(err));
       } else {
@@ -72,6 +74,7 @@ const CustomModal = ({
             setPost("");
             onToggleOpenModal();
             message.success("게시글 작성이 완료되었습니다.", 2.5);
+            Router.replace("/");
           })
           .catch((err) => console.error(err));
       }
