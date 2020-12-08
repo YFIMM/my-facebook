@@ -3,6 +3,7 @@ import Link from "next/link";
 import PropTypes from "prop-types";
 import { Avatar, Badge } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { useRouter } from "next/router";
 
 import {
   HeaderBar,
@@ -25,6 +26,8 @@ import {
 } from "@components/Home/Header/style";
 
 const Header = ({ username }) => {
+  const router = useRouter();
+
   return (
     <HeaderBar>
       <SearchWrapper>
@@ -41,11 +44,18 @@ const Header = ({ username }) => {
       <NavigatorWrapper>
         <NavigatorContainer>
           <ul>
-            <li>
+            <li
+              style={{
+                borderBottom:
+                  router.pathname === "/" ? "2px solid #2d88ff" : "none",
+              }}
+            >
               <Badge>
                 <Link href="/">
                   <a>
-                    <HomeIcon />
+                    <HomeIcon
+                      color={router.pathname === "/" ? "#2d88ff" : "#606770"}
+                    />
                   </a>
                 </Link>
               </Badge>
@@ -59,11 +69,22 @@ const Header = ({ username }) => {
                 </Link>
               </Badge>
             </li>
-            <li>
+            <li
+              style={{
+                borderBottom:
+                  router.pathname === "/messenger"
+                    ? "2px solid #2d88ff"
+                    : "none",
+              }}
+            >
               <Badge count={5} size="small">
-                <Link href="/">
+                <Link href="/messenger">
                   <a>
-                    <MessengerIcon />
+                    <MessengerIcon
+                      color={
+                        router.pathname === "/messenger" ? "#2d88ff" : "#606770"
+                      }
+                    />
                   </a>
                 </Link>
               </Badge>

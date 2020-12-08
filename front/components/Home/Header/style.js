@@ -104,7 +104,6 @@ export const NavigatorContainer = styled.div`
       height: 100%;
       display: flex;
       align-items: center;
-      border-bottom: 2px solid #2d88ff;
       border-bottom-right-radius: 1px;
       border-bottom-left-radius: 1px;
 
@@ -117,8 +116,7 @@ export const NavigatorContainer = styled.div`
 
 export const HomeIcon = styled(FaHome)`
   font-size: 36px;
-  color: #606770;
-  color: #2d88ff;
+  color: ${(props) => props.color};
 `;
 
 export const PeopleIcon = styled(BsPeopleFill)`
@@ -128,7 +126,7 @@ export const PeopleIcon = styled(BsPeopleFill)`
 
 export const MessengerIcon = styled(FaFacebookMessenger)`
   font-size: 36px;
-  color: #606770;
+  color: ${(props) => props.color};
 `;
 
 export const UserWrapper = styled.div`
