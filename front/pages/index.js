@@ -13,6 +13,7 @@ import Feed from "@components/Home/Feed";
 import Social from "@components/Home/Social";
 
 const Home = ({ userData, posts }) => {
+  console.log(userData);
   return (
     <>
       <Header username={userData.name} />
@@ -25,7 +26,7 @@ const Home = ({ userData, posts }) => {
       >
         <SideBar />
         <Feed userData={userData} username={userData.name} posts={posts} />
-        <Social />
+        <Social userData={userData} />
       </div>
     </>
   );
