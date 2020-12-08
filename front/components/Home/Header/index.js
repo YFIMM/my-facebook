@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
-import { Avatar, Badge } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Dropdown, Menu } from "antd";
+import { UserOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
+import axios from "axios";
+import { useCookies } from "react-cookie";
+
+import { SERVER } from "env";
 
 import {
   HeaderBar,
@@ -18,7 +22,6 @@ import {
   Input,
   NavigatorContainer,
   HomeIcon,
-  PeopleIcon,
   MessengerIcon,
   UserContainer,
   DropDownContainer,
@@ -27,6 +30,32 @@ import {
 
 const Header = ({ username }) => {
   const router = useRouter();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+
+  const onClickMenu = useCallback(({ key }) => {
+    console.log(key);
+    if (key === "logout") {
+      axios
+        .post(`${SERVER}/auth/logout`, {}, { withCredentials: true })
+        .then(() => {
+          window.location.reload();
+          removeCookie("accessToken");
+        });
+    }
+  }, []);
+
+  const menu = (
+    <Menu onClick={onClickMenu}>
+      <Menu.Item
+        key="logout"
+        icon={<UserDeleteOutlined style={{ fontSize: "18px" }} />}
+        style={{ color: "red", width: "200px" }}
+      >
+        로그아웃
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <HeaderBar>
@@ -86,7 +115,9 @@ const Header = ({ username }) => {
             <span>{username}</span>
           </UserContainer>
           <DropDownContainer>
-            <DropDownIcon />
+            <Dropdown placement="bottomLeft" overlay={menu} trigger={["click"]}>
+              <DropDownIcon />
+            </Dropdown>
           </DropDownContainer>
         </div>
       </UserWrapper>
