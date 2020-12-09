@@ -43,6 +43,10 @@ app.use("/api/user", userAPIRouter);
 app.use("/api/post", postAPIRouter);
 app.use("/api/posts", postsAPIRouter);
 
-app.listen(app.get("PORT"), () => {
+const webSocket = require("./socket");
+
+const server = app.listen(app.get("PORT"), () => {
   console.log(`listening on port ${app.get("PORT")}`);
 });
+
+webSocket(server, app);

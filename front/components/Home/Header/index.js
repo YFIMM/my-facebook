@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import { Avatar, Dropdown, Menu } from "antd";
@@ -6,6 +6,8 @@ import { UserOutlined, UserDeleteOutlined } from "@ant-design/icons";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+
+import useSocket from "@hooks/useSocket";
 
 import { SERVER } from "env";
 
@@ -28,8 +30,10 @@ import {
   DropDownIcon,
 } from "@components/Home/Header/style";
 
-const Header = ({ username }) => {
+const Header = ({ userData }) => {
   const router = useRouter();
+
+  const [socket, disconnectSocket] = useSocket();
 
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
 
@@ -55,6 +59,10 @@ const Header = ({ username }) => {
       </Menu.Item>
     </Menu>
   );
+
+  // useEffect(() => {
+  //   disconnectSocket();
+  // }, [userData.id]);
 
   return (
     <HeaderBar>
@@ -111,7 +119,7 @@ const Header = ({ username }) => {
         <div>
           <UserContainer>
             <Avatar size={30} icon={<UserOutlined />} />
-            <span>{username}</span>
+            <span>{userData.name}</span>
           </UserContainer>
           <DropDownContainer>
             <Dropdown placement="bottomLeft" overlay={menu} trigger={["click"]}>
@@ -125,7 +133,7 @@ const Header = ({ username }) => {
 };
 
 Header.propTypes = {
-  username: PropTypes.string.isRequired,
+  userData: PropTypes.object.isRequired,
 };
 
 export default Header;

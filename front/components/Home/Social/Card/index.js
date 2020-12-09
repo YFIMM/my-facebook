@@ -11,7 +11,7 @@ import {
   Light,
 } from "@components/Home/Social/Card/style";
 
-const Card = ({ username }) => {
+const Card = ({ username, isOnline }) => {
   return (
     <Wrapper>
       <AvatarContainer>
@@ -19,7 +19,7 @@ const Card = ({ username }) => {
       </AvatarContainer>
       <Span>{username}</Span>
       <LightContainer>
-        <Light />
+        <Light backgroundColor={isOnline ? "green" : "gray"} />
       </LightContainer>
     </Wrapper>
   );
@@ -27,6 +27,7 @@ const Card = ({ username }) => {
 
 Card.propTypes = {
   username: PropTypes.string.isRequired,
+  isOnline: PropTypes.bool.isRequired,
 };
 
 export default Card;

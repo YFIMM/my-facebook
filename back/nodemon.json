@@ -5,7 +5,8 @@
     "config",
     "passport",
     "models",
-    "nodemon.json"
+    "nodemon.json",
+    "socket.js"
   ],
   "exec": "node app.js",
   "ext": "js json"

@@ -12,7 +12,7 @@ import Chat from "@components/Messenger/Chat";
 const Messenger = ({ userData }) => {
   return (
     <>
-      <Header username={userData.name} />
+      <Header userData={userData} />
       <div
         style={{
           display: "flex",

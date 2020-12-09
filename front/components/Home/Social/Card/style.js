@@ -38,5 +38,5 @@ export const Light = styled.div`
   height: 8px;
   border-radius: 8px;
   border: 1px solid white;
-  background-color: green;
+  background-color: ${(props) => props.backgroundColor};
 `;

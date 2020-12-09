@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
+import useSocket from "@hooks/useSocket";
+
 import Card from "@components/Home/Social/Card";
 
 import {
@@ -11,7 +13,10 @@ import {
 } from "@components/Home/Social/style";
 
 const Social = ({ userData }) => {
+  const [socket, disconnectSocket] = useSocket();
+
   const [userList, setUserList] = useState([]);
+  const [onlineUserList, setOnlineUserList] = useState([]);
 
   useEffect(() => {
     setUserList(userList.concat(userData.Followers));
@@ -20,7 +25,11 @@ const Social = ({ userData }) => {
     setUserList((prevList) => Array.from(new Set(prevList)));
   }, []);
 
-  console.log(userList);
+  useEffect(() => {
+    socket.on("onlineUsers", (data) => {
+      setOnlineUserList(data);
+    });
+  }, [socket]);
 
   return (
     <SocialWrapper style={{ color: "white" }}>
@@ -28,7 +37,13 @@ const Social = ({ userData }) => {
       <Divider />
       <UserListContainer>
         {userList.length > 0 &&
-          userList.map((v, i) => <Card username={v.name} />)}
+          userList.map((v, i) => {
+            console.log(onlineUserList, v.id);
+            const isOnline = onlineUserList.find((e) => Number(e) === v.id)
+              ? true
+              : false;
+            return <Card key={v.id} isOnline={isOnline} username={v.name} />;
+          })}
       </UserListContainer>
     </SocialWrapper>
   );
