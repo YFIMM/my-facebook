@@ -13,13 +13,13 @@ module.exports = (server, app) => {
     const namespace = socket.nsp;
 
     socket.on("login", (data) => {
-      onlineUsers[data.id] = "online";
-      console.log(onlineUsers);
-      namespace.emit("onlineUsers", Object.keys(onlineUsers));
+      onlineUsers[socket.id] = data.id;
+      namespace.emit("onlineUsers", Object.values(onlineUsers));
     });
 
     socket.on("disconnect", () => {
-      console.log("disconnect!!");
+      delete onlineUsers[socket.id];
+      namespace.emit("onlineUsers", Object.values(onlineUsers));
     });
   });
 };

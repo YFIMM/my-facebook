@@ -38,7 +38,6 @@ const Social = ({ userData }) => {
       <UserListContainer>
         {userList.length > 0 &&
           userList.map((v, i) => {
-            console.log(onlineUserList, v.id);
             const isOnline = onlineUserList.find((e) => Number(e) === v.id)
               ? true
               : false;

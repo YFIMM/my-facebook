@@ -61,7 +61,10 @@ const Header = ({ userData }) => {
   );
 
   // useEffect(() => {
-  //   disconnectSocket();
+  //   return () => {
+  //     socket.emit("logout", { id: userData.id });
+  //     // disconnectSocket();
+  //   };
   // }, [userData.id]);
 
   return (
