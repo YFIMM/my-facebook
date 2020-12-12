@@ -1,9 +1,30 @@
 import React from "react";
 
-import { Wrapper } from "@components/Messenger/Chat/style";
+import OtherChat from "@components/Messenger/Chat/OtherChat";
+import MyChat from "@components/Messenger/Chat/MyChat";
 
-const Chat = () => {
-  return <Wrapper>Chat</Wrapper>;
+import {
+  Wrapper,
+  ChatContainer,
+  ProfileContainer,
+  ChatListContainer,
+  ChatData,
+  Span,
+  UserChat,
+} from "@components/Messenger/Chat/style";
+
+const Chat = ({ username, userId }) => {
+  return (
+    <Wrapper>
+      <ChatContainer>
+        <ProfileContainer>{username}</ProfileContainer>
+        <ChatListContainer>
+          <OtherChat />
+          <MyChat />
+        </ChatListContainer>
+      </ChatContainer>
+    </Wrapper>
+  );
 };
 
 export default Chat;

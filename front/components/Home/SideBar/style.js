@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const SideBarWrapper = styled.div`
-  border: 1px solid red;
   display: flex;
   position: fixed;
   width: 20%;

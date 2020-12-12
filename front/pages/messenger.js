@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 
 import { SERVER } from "env";
@@ -10,6 +10,18 @@ import SideBar from "@components/Messenger/SideBar";
 import Chat from "@components/Messenger/Chat";
 
 const Messenger = ({ userData }) => {
+  const [userInfo, setUserInfo] = useState({
+    username: null,
+    userId: null,
+  });
+
+  const onClickHandler = useCallback((username, userId) => {
+    setUserInfo({
+      username,
+      userId,
+    });
+  }, []);
+
   return (
     <>
       <Header userData={userData} />
@@ -20,8 +32,10 @@ const Messenger = ({ userData }) => {
           paddingTop: "56px",
         }}
       >
-        <SideBar />
-        <Chat />
+        <SideBar onClickHandler={onClickHandler} userData={userData} />
+        {!Object.values(userInfo).includes(null) && (
+          <Chat userId={userInfo.userId} username={userInfo.username} />
+        )}
       </div>
     </>
   );

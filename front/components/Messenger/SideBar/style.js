@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  border: 1px solid red;
+  border: 1px solid #444546;
   display: flex;
   position: fixed;
-  width: 20%;
+  width: 27%;
   left: 0;
+  background-color: #242526;
+  height: 100vh;
+  color: white;
+  flex-direction: column;
 
   &:hover {
     overflow-y: scroll;
@@ -24,5 +28,20 @@ export const Wrapper = styled.div`
     background-color: grey;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
+  }
+`;
+
+export const FontBox = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  height: 60px;
+  border-bottom: 1px solid #444546;
+  justify-content: center;
+  margin-bottom: 7px;
+
+  & h1 {
+    color: inherit;
   }
 `;
