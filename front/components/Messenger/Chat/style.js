@@ -34,7 +34,8 @@ export const ProfileContainer = styled.div`
 export const ChatListContainer = styled.div`
   width: 100%;
   height: 400px;
-  border: 1px solid green;
+  border-bottom: 1px solid #444546;
+  border-right: 1px solid #444546;
   margin-top: 60px;
   overflow-y: auto;
 
@@ -74,4 +75,36 @@ export const UserChat = styled.div`
   font-size: 15px;
   display: flex;
   align-items: center;
+`;
+
+export const SendContainer = styled.div`
+  width: 100%;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Form = styled.form`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+`;
+
+export const TextArea = styled.textarea`
+  width: 88%;
+  height: 100%;
+  resize: none;
+  overflow: hidden;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #242526;
+
+  &:focus {
+    border: 1px solid #1877f2;
+    box-shadow: 0 0 0 2px #e7f3ff;
+    caret-color: #1877f2;
+    outline: none !important;
+  }
 `;

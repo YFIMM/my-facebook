@@ -4,7 +4,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { ChatData, Span, UserChat } from "@components/Messenger/Chat/style";
 
-const ChatList = () => {
+const OtherChat = ({ content, name }) => {
   return (
     <ChatData>
       <div
@@ -16,11 +16,11 @@ const ChatList = () => {
         }}
       >
         <Avatar icon={<UserOutlined />} />
-        <Span style={{ overflow: "hidden" }}>강민석</Span>
+        <Span style={{ overflow: "hidden" }}>{name}</Span>
       </div>
-      <UserChat>ㅎㅇ</UserChat>
+      <UserChat>{content}</UserChat>
     </ChatData>
   );
 };
 
-export default ChatList;
+export default OtherChat;

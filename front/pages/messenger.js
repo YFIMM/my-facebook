@@ -34,7 +34,11 @@ const Messenger = ({ userData }) => {
       >
         <SideBar onClickHandler={onClickHandler} userData={userData} />
         {!Object.values(userInfo).includes(null) && (
-          <Chat userId={userInfo.userId} username={userInfo.username} />
+          <Chat
+            userData={userData}
+            userId={userInfo.userId}
+            username={userInfo.username}
+          />
         )}
       </div>
     </>

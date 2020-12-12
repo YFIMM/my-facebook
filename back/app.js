@@ -37,11 +37,13 @@ const authAPIRouter = require("./routers/auth");
 const userAPIRouter = require("./routers/user");
 const postAPIRouter = require("./routers/post");
 const postsAPIRouter = require("./routers/posts");
+const messengerAPIRouter = require("./routers/messenger");
 
 app.use("/api/auth", authAPIRouter);
 app.use("/api/user", userAPIRouter);
 app.use("/api/post", postAPIRouter);
 app.use("/api/posts", postsAPIRouter);
+app.use("/api/messenger", messengerAPIRouter);
 
 const webSocket = require("./socket");
 

@@ -4,10 +4,10 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { ChatData, Span, UserChat } from "@components/Messenger/Chat/style";
 
-const MyChat = () => {
+const MyChat = ({ content, name }) => {
   return (
     <ChatData>
-      <UserChat style={{ justifyContent: "flex-end" }}>ㅎㅇ</UserChat>
+      <UserChat style={{ justifyContent: "flex-end" }}>{content}</UserChat>
       <div
         style={{
           height: "100%",
@@ -17,7 +17,7 @@ const MyChat = () => {
           justifyContent: "flex-end",
         }}
       >
-        <Span style={{ overflow: "hidden" }}>강민석</Span>
+        <Span style={{ overflow: "hidden" }}>{name}</Span>
         <Avatar icon={<UserOutlined />} />
       </div>
     </ChatData>
