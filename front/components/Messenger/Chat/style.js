@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 export const Wrapper = styled.div`
   flex: 2.5 2.5 auto;
@@ -92,7 +93,7 @@ export const Form = styled.form`
   align-items: center;
 `;
 
-export const TextArea = styled.textarea`
+export const TextArea = styled.input`
   width: 88%;
   height: 100%;
   resize: none;

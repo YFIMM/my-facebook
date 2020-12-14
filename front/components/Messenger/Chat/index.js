@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useRef, useCallback, useEffect, createRef } from "react";
 import { Button, message } from "antd";
 import axios from "axios";
 import useSWR from "swr";
@@ -30,9 +30,11 @@ const Chat = ({ username, userId, userData }) => {
     fetcher
   );
 
+  const scrollBarRef = createRef();
+
   const [text, onChangeText, setText] = useInput("");
 
-  const [socket, disconnectSocket] = useSocket();
+  const [socket, disconnectSocket] = useSocket("online");
 
   const onSubmit = useCallback(
     (e) => {
@@ -48,8 +50,14 @@ const Chat = ({ username, userId, userData }) => {
           { content: text },
           { withCredentials: true }
         )
-        .then(() => {
+        .then((response) => {
           setText("");
+
+          mutateChat((prev) => {
+            prev.push(response.data);
+
+            return prev;
+          });
         })
         .catch((err) => console.error(err));
     },
@@ -58,19 +66,25 @@ const Chat = ({ username, userId, userData }) => {
 
   useEffect(() => {
     socket.on("message", (data) => {
-      console.log(data);
-    });
+      mutateChat((prev) => {
+        prev.push(data);
 
-    return () => {
-      socket.off("message");
-    };
+        return prev;
+      });
+    });
   }, [socket]);
+
+  useEffect(() => {
+    let scroll =
+      scrollBarRef.current.scrollHeight - scrollBarRef.current.clientHeight;
+    scrollBarRef.current.scrollTo(0, scroll);
+  }, [chatData]);
 
   return (
     <Wrapper>
       <ChatContainer>
         <ProfileContainer>{username}</ProfileContainer>
-        <ChatListContainer>
+        <ChatListContainer ref={scrollBarRef}>
           {chatData &&
             chatData.map((v) => {
               if (v.Sender.id === userData.id) {

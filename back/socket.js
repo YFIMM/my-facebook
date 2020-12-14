@@ -9,17 +9,39 @@ module.exports = (server, app) => {
   app.set("io", io);
   app.set("onlineUsers", onlineUsers);
 
-  io.on("connection", (socket) => {
+  const online = io.of("/online");
+
+  online.on("connect", (socket) => {
     const namespace = socket.nsp;
 
     socket.on("login", (data) => {
       onlineUsers[socket.id] = data.id;
+
       namespace.emit("onlineUsers", Object.values(onlineUsers));
+
+      console.log(onlineUsers);
     });
 
     socket.on("disconnect", () => {
       delete onlineUsers[socket.id];
+      console.log("disconnect");
       namespace.emit("onlineUsers", Object.values(onlineUsers));
     });
   });
+
+  // io.on("connection", (socket) => {
+  //   const namespace = socket.nsp;
+
+  //   socket.on("login", (data) => {
+  //     onlineUsers[socket.id] = data.id;
+  //     namespace.emit("onlineUsers", Object.values(onlineUsers));
+  //     console.log("login");
+  //   });
+
+  //   socket.on("disconnect", () => {
+  //     delete onlineUsers[socket.id];
+  //     console.log("disconnect");
+  //     namespace.emit("onlineUsers", Object.values(onlineUsers));
+  //   });
+  // });
 };

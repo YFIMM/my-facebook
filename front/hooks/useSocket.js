@@ -3,19 +3,27 @@ import io from "socket.io-client";
 
 const server = "http://localhost:5003";
 
-let socket = null;
+const sockets = {};
 
-const useSocket = () => {
+const useSocket = (namespace) => {
   const disconnectSocket = useCallback(() => {
-    socket.disconnect();
-    socket = null;
-  }, []);
+    if (namespace && sockets[namespace]) {
+      sockets[namespace].disconnect();
+      delete sockets[namespace];
+    }
+  }, [namespace]);
 
-  socket = io(`${server}`, {
-    transports: ["websocket"],
-  });
+  if (!namespace) {
+    return [undefined, disconnectSocket];
+  }
 
-  return [socket, disconnectSocket];
+  if (!sockets[namespace]) {
+    sockets[namespace] = io(`${server}/${namespace}`, {
+      transports: ["websocket"],
+    });
+  }
+
+  return [sockets[namespace], disconnectSocket];
 };
 
 export default useSocket;

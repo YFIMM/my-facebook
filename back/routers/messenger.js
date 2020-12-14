@@ -52,7 +52,7 @@ router.post("/:id", isLoggedIn, async (req, res, next) => {
       content: req.body.content,
     });
 
-    const messageWithSender = await Messenger.findOne({
+    const theMessage = await Messenger.findOne({
       where: { id: message.id },
       include: [
         {
@@ -67,14 +67,16 @@ router.post("/:id", isLoggedIn, async (req, res, next) => {
         },
       ],
     });
-    const io = req.app.get("io");
+    const io = req.app.get("io").of("/online");
     const onlineUsers = req.app.get("onlineUsers");
     const receiverSocketId = Object.keys(onlineUsers).find(
       (key) => onlineUsers[key] === Number(ReceiverId)
     );
 
-    io.to(receiverSocketId).emit("message", messageWithSender);
-    res.send("ok");
+    console.log("receiver", receiverSocketId);
+
+    io.to(receiverSocketId).emit("message", theMessage);
+    res.json(theMessage);
   } catch (error) {
     next(error);
   }

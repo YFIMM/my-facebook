@@ -33,7 +33,7 @@ import {
 const Header = ({ userData }) => {
   const router = useRouter();
 
-  const [socket, disconnectSocket] = useSocket();
+  const [socket, disconnectSocket] = useSocket("online");
 
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
 
@@ -48,6 +48,10 @@ const Header = ({ userData }) => {
     }
   }, []);
 
+  useEffect(() => {
+    socket.emit("login", { id: userData.id });
+  }, [socket]);
+
   const menu = (
     <Menu onClick={onClickMenu}>
       <Menu.Item
@@ -59,13 +63,6 @@ const Header = ({ userData }) => {
       </Menu.Item>
     </Menu>
   );
-
-  // useEffect(() => {
-  //   return () => {
-  //     socket.emit("logout", { id: userData.id });
-  //     // disconnectSocket();
-  //   };
-  // }, [userData.id]);
 
   return (
     <HeaderBar>

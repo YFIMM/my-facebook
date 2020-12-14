@@ -13,7 +13,7 @@ import {
 } from "@components/Home/Social/style";
 
 const Social = ({ userData }) => {
-  const [socket, disconnectSocket] = useSocket();
+  const [socket, disconnectSocket] = useSocket("online");
 
   const [userList, setUserList] = useState([]);
   const [onlineUserList, setOnlineUserList] = useState([]);

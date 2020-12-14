@@ -18,9 +18,9 @@ const Home = ({ userData, posts }) => {
   const [socket, disconnectSocket] = useSocket();
   // console.log("hello: ", userData);
 
-  useEffect(() => {
-    socket.emit("login", { id: userData.id });
-  }, []);
+  // useEffect(() => {
+  //   socket.emit("login", { id: userData.id });
+  // }, []);
 
   // useEffect(() => {
   //   return () => {
