@@ -1,7 +1,13 @@
-import React, { useRef, useCallback, useEffect, createRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  createRef,
+  useRef,
+} from "react";
 import { Button, message } from "antd";
 import axios from "axios";
-import useSWR from "swr";
+import useSWR, { useSWRInfinite } from "swr";
 import PropTypes from "prop-types";
 
 import OtherChat from "@components/Messenger/Chat/OtherChat";
@@ -24,17 +30,21 @@ import {
   TextArea,
 } from "@components/Messenger/Chat/style";
 
+const PAGE_SIZE = 20;
+
 const Chat = ({ username, userId, userData }) => {
-  const { data: chatData, mutate: mutateChat } = useSWR(
-    `${SERVER}/messenger/${userId}`,
+  const { data: chatData, mutate: mutateChat, setSize } = useSWRInfinite(
+    (i) => `${SERVER}/messenger/${userId}?perPage=${PAGE_SIZE}&page=${i + 1}`,
     fetcher
   );
 
-  const scrollBarRef = createRef();
+  const scrollBarRef = useRef();
 
   const [text, onChangeText, setText] = useInput("");
 
   const [socket, disconnectSocket] = useSocket("online");
+
+  const [chatSections, setChatSections] = useState([]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -43,7 +53,6 @@ const Chat = ({ username, userId, userData }) => {
       if (!text || !text.trim()) {
         return message.error("메세지를 입력해주세요", 2.5);
       }
-
       axios
         .post(
           `${SERVER}/messenger/${userId}`,
@@ -54,47 +63,72 @@ const Chat = ({ username, userId, userData }) => {
           setText("");
 
           mutateChat((prev) => {
-            prev.push(response.data);
+            prev[0].push(response.data);
 
             return prev;
+          }).then(() => {
+            const scroll =
+              scrollBarRef.current.scrollHeight -
+              scrollBarRef.current.clientHeight;
+            scrollBarRef.current.scrollTo(0, scroll);
           });
         })
         .catch((err) => console.error(err));
     },
-    [text]
+    [text, scrollBarRef]
   );
 
-  useEffect(() => {
-    socket.on("message", (data) => {
-      mutateChat((prev) => {
-        prev.push(data);
+  // useEffect(() => {
+  //   if (chatData) {
+  //     setChatSections((prevData) => {
+  //       prevData.concat(...chatData).reverse();
 
-        return prev;
-      });
-    });
-  }, [socket]);
+  //       return prevData;
+  //     });
+  //   }
+  // }, [chatData]);
+
+  // useEffect(() => {
+  //   socket.on("message", (data) => {
+  //     mutateChat((prev) => {
+  //       prev[0].unshift(data);
+
+  //       return prev;
+  //     }, false);
+  //   });
+  // }, [socket]);
 
   useEffect(() => {
-    let scroll =
+    const scroll =
       scrollBarRef.current.scrollHeight - scrollBarRef.current.clientHeight;
     scrollBarRef.current.scrollTo(0, scroll);
   }, [chatData]);
+
+  const onScroll = useCallback((e) => {
+    if (e.nativeEvent.srcElement.scrollTop === 0) {
+      console.log("HI");
+    }
+  }, []);
 
   return (
     <Wrapper>
       <ChatContainer>
         <ProfileContainer>{username}</ProfileContainer>
-        <ChatListContainer ref={scrollBarRef}>
+        <ChatListContainer ref={scrollBarRef} onScroll={onScroll}>
           {chatData &&
-            chatData.map((v) => {
+            chatData[0].map((v, i) => {
               if (v.Sender.id === userData.id) {
                 return (
-                  <MyChat key={v.id} name={v.Sender.name} content={v.content} />
+                  <MyChat
+                    key={`${v.id}/${i}`}
+                    name={v.Sender.name}
+                    content={v.content}
+                  />
                 );
               } else {
                 return (
                   <OtherChat
-                    key={v.id}
+                    key={`${v.id}/${i}`}
                     name={v.Sender.name}
                     content={v.content}
                   />

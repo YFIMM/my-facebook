@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.get("/:id", isLoggedIn, async (req, res, next) => {
   try {
+    console.log(req.query.perPage, req.query.page);
     const messages = await Messenger.findAll({
       where: {
         [Op.or]: [
@@ -34,8 +35,11 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
           attributes: ["id", "name"],
         },
       ],
+      order: [["createdAt", "DESC"]],
+      limit: parseInt(req.query.perPage, 10),
+      offset: req.query.perPage * (req.query.page - 1),
     });
-    res.json(messages);
+    res.json(messages.reverse());
   } catch (error) {
     next(error);
   }
@@ -72,8 +76,6 @@ router.post("/:id", isLoggedIn, async (req, res, next) => {
     const receiverSocketId = Object.keys(onlineUsers).find(
       (key) => onlineUsers[key] === Number(ReceiverId)
     );
-
-    console.log("receiver", receiverSocketId);
 
     io.to(receiverSocketId).emit("message", theMessage);
     res.json(theMessage);
