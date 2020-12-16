@@ -4,6 +4,7 @@ import Head from "next/head";
 import _JSXStyle from "styled-jsx/style";
 
 import "antd/dist/antd.css";
+import "react-image-lightbox/style.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (

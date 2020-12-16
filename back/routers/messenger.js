@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get("/:id", isLoggedIn, async (req, res, next) => {
   try {
-    console.log(req.query.perPage, req.query.page);
     const messages = await Messenger.findAll({
       where: {
         [Op.or]: [
@@ -35,11 +34,8 @@ router.get("/:id", isLoggedIn, async (req, res, next) => {
           attributes: ["id", "name"],
         },
       ],
-      order: [["createdAt", "DESC"]],
-      limit: parseInt(req.query.perPage, 10),
-      offset: req.query.perPage * (req.query.page - 1),
     });
-    res.json(messages.reverse());
+    res.json(messages);
   } catch (error) {
     next(error);
   }

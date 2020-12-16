@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Lightbox from "react-image-lightbox";
 
 import {
   Wrapper,
@@ -11,23 +12,15 @@ import {
 } from "@components/Home/Feed/Card/Img/style";
 
 const Img = ({ images }) => {
-  // const images = [
-  //   "http://localhost:5003/1.png",
-  //   "http://localhost:5003/2.png",
-  //   "http://localhost:5003/3.png",
-  //   "http://localhost:5003/13.png",
-  //   "http://localhost:5003/14.jpg",
-  //   "http://localhost:5003/3.png",
-  //   "http://localhost:5003/13.png",
-  //   "http://localhost:5003/14.jpg",
-  // ];
+  const [openBox, setOpenBox] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
 
   if (images.length > 5) {
     let marginRight = 0;
 
     return (
       <Wrapper height="500px">
-        <ImgContainer>
+        <ImgContainer onClick={() => setOpenBox(true)}>
           {[...Array(5)].map((v, i) => {
             if (i === 0) {
               marginRight = 0.12;
@@ -61,6 +54,24 @@ const Img = ({ images }) => {
               </OddBox>
             );
           })}
+          {openBox && (
+            <Lightbox
+              mainSrc={`http://localhost:5003/${images[imageIndex].src}`}
+              nextSrc={images[(imageIndex + 1) % images.length].src}
+              prevSrc={
+                images[(imageIndex + images.length - 1) % images.length].src
+              }
+              onCloseRequest={() => setOpenBox(false)}
+              onMoveNextRequest={() =>
+                setImageIndex((prev) => (prev + 1) % images.length)
+              }
+              onMovePrevRequest={() =>
+                setImageIndex(
+                  (prev) => (prev + images.length - 1) % images.length
+                )
+              }
+            />
+          )}
         </ImgContainer>
       </Wrapper>
     );
@@ -68,7 +79,7 @@ const Img = ({ images }) => {
 
   return (
     <Wrapper height={images.length === 1 ? "250px" : "500px"}>
-      <ImgContainer>
+      <ImgContainer onClick={() => setOpenBox(true)}>
         {images.map((v, i) => {
           if (images.length === 1) {
             return (
@@ -125,6 +136,24 @@ const Img = ({ images }) => {
             );
           }
         })}
+        {openBox && (
+          <Lightbox
+            mainSrc={`http://localhost:5003/${images[imageIndex].src}`}
+            nextSrc={images[(imageIndex + 1) % images.length].src}
+            prevSrc={
+              images[(imageIndex + images.length - 1) % images.length].src
+            }
+            onCloseRequest={() => setOpenBox(false)}
+            onMoveNextRequest={() =>
+              setImageIndex((prev) => (prev + 1) % images.length)
+            }
+            onMovePrevRequest={() =>
+              setImageIndex(
+                (prev) => (prev + images.length - 1) % images.length
+              )
+            }
+          />
+        )}
       </ImgContainer>
     </Wrapper>
   );

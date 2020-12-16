@@ -70,12 +70,6 @@ const Header = ({ userData }) => {
         <LogoContainer>
           <Logo />
         </LogoContainer>
-        <SearchContainer>
-          <InputContainer>
-            <SearchIcon />
-            <Input type="text" placeholder="친구 찾기" />
-          </InputContainer>
-        </SearchContainer>
       </SearchWrapper>
       <NavigatorWrapper>
         <NavigatorContainer>

@@ -1,13 +1,7 @@
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  createRef,
-  useRef,
-} from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { Button, message } from "antd";
 import axios from "axios";
-import useSWR, { useSWRInfinite } from "swr";
+import useSWR from "swr";
 import PropTypes from "prop-types";
 
 import OtherChat from "@components/Messenger/Chat/OtherChat";
@@ -30,11 +24,9 @@ import {
   TextArea,
 } from "@components/Messenger/Chat/style";
 
-const PAGE_SIZE = 20;
-
 const Chat = ({ username, userId, userData }) => {
-  const { data: chatData, mutate: mutateChat, setSize } = useSWRInfinite(
-    (i) => `${SERVER}/messenger/${userId}?perPage=${PAGE_SIZE}&page=${i + 1}`,
+  const { data: chatData, mutate: mutateChat } = useSWR(
+    `${SERVER}/messenger/${userId}`,
     fetcher
   );
 
@@ -43,8 +35,6 @@ const Chat = ({ username, userId, userData }) => {
   const [text, onChangeText, setText] = useInput("");
 
   const [socket, disconnectSocket] = useSocket("online");
-
-  const [chatSections, setChatSections] = useState([]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -63,7 +53,7 @@ const Chat = ({ username, userId, userData }) => {
           setText("");
 
           mutateChat((prev) => {
-            prev[0].push(response.data);
+            prev.push(response.data);
 
             return prev;
           }).then(() => {
@@ -78,25 +68,19 @@ const Chat = ({ username, userId, userData }) => {
     [text, scrollBarRef]
   );
 
-  // useEffect(() => {
-  //   if (chatData) {
-  //     setChatSections((prevData) => {
-  //       prevData.concat(...chatData).reverse();
+  useEffect(() => {
+    socket.on("message", (data) => {
+      mutateChat((prev) => {
+        prev.push(data);
 
-  //       return prevData;
-  //     });
-  //   }
-  // }, [chatData]);
+        return prev;
+      }, false);
+    });
 
-  // useEffect(() => {
-  //   socket.on("message", (data) => {
-  //     mutateChat((prev) => {
-  //       prev[0].unshift(data);
-
-  //       return prev;
-  //     }, false);
-  //   });
-  // }, [socket]);
+    return () => {
+      socket.off("message");
+    };
+  }, [socket]);
 
   useEffect(() => {
     const scroll =
@@ -104,19 +88,13 @@ const Chat = ({ username, userId, userData }) => {
     scrollBarRef.current.scrollTo(0, scroll);
   }, [chatData]);
 
-  const onScroll = useCallback((e) => {
-    if (e.nativeEvent.srcElement.scrollTop === 0) {
-      console.log("HI");
-    }
-  }, []);
-
   return (
     <Wrapper>
       <ChatContainer>
         <ProfileContainer>{username}</ProfileContainer>
-        <ChatListContainer ref={scrollBarRef} onScroll={onScroll}>
+        <ChatListContainer ref={scrollBarRef}>
           {chatData &&
-            chatData[0].map((v, i) => {
+            chatData.map((v, i) => {
               if (v.Sender.id === userData.id) {
                 return (
                   <MyChat
