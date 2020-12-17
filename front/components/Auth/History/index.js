@@ -14,7 +14,7 @@ import {
   UserImg,
 } from "@components/Auth/History/style";
 
-const History = ({ onChangeOpenModal }) => {
+const History = ({ onChangeOpenModal, username, setUsername }) => {
   return (
     <Wrapper>
       <LogoContainer>
@@ -26,11 +26,23 @@ const History = ({ onChangeOpenModal }) => {
       <BigFontBox>최근 로그인 기록</BigFontBox>
       <SmallFontBox>사진을 클릭하거나 계정을 추가하세요.</SmallFontBox>
       <AuthHistoryCardContainer>
-        <AuthHistoryCard onClick={onChangeOpenModal}>
-          <ProfileImg shape="square" icon={<UserImg />} />
-          <UsernameBox>강민석</UsernameBox>
-          <CloseBtn id="close-btn" />
-        </AuthHistoryCard>
+        {username && (
+          <AuthHistoryCard>
+            <ProfileImg
+              shape="square"
+              icon={<UserImg />}
+              onClick={onChangeOpenModal}
+            />
+            <UsernameBox>{username}</UsernameBox>
+            <CloseBtn
+              id="close-btn"
+              onClick={() => {
+                setUsername("");
+                window.localStorage.removeItem("user");
+              }}
+            />
+          </AuthHistoryCard>
+        )}
       </AuthHistoryCardContainer>
     </Wrapper>
   );
@@ -38,6 +50,8 @@ const History = ({ onChangeOpenModal }) => {
 
 History.propTypes = {
   onChangeOpenModal: PropTypes.func.isRequired,
+  username: PropTypes.string,
+  setUsername: PropTypes.func.isRequired,
 };
 
 export default History;

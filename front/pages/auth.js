@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 
 import { Wrapper, AuthContainer } from "@style/Auth";
@@ -16,6 +16,12 @@ const Auth = () => {
   const [goToSignUp, setGoToSignUp] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    setUsername(window.localStorage.getItem("user"));
+  }, [username]);
+
   const onChangeGoToSignUp = useCallback(() => {
     setGoToSignUp((prev) => !prev);
   }, []);
@@ -27,7 +33,11 @@ const Auth = () => {
   return (
     <Wrapper>
       <AuthContainer>
-        <History onChangeOpenModal={onChangeOpenModal} />
+        <History
+          onChangeOpenModal={onChangeOpenModal}
+          username={username}
+          setUsername={setUsername}
+        />
         {goToSignUp ? (
           <SignUp onChangeGoToSignUp={onChangeGoToSignUp} />
         ) : (
@@ -35,7 +45,11 @@ const Auth = () => {
         )}
       </AuthContainer>
       {openModal && (
-        <Modal openModal={openModal} onChangeOpenModal={onChangeOpenModal} />
+        <Modal
+          openModal={openModal}
+          onChangeOpenModal={onChangeOpenModal}
+          username={username}
+        />
       )}
     </Wrapper>
   );
