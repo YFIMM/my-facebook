@@ -14,7 +14,13 @@ import {
   UserImg,
 } from "@components/Auth/History/style";
 
-const History = ({ onChangeOpenModal, username, setUsername }) => {
+const History = ({
+  onChangeOpenModal,
+  username,
+  setUsername,
+  profileImgUrl,
+  setProfileImgUrl,
+}) => {
   return (
     <Wrapper>
       <LogoContainer>
@@ -28,17 +34,27 @@ const History = ({ onChangeOpenModal, username, setUsername }) => {
       <AuthHistoryCardContainer>
         {username && (
           <AuthHistoryCard>
-            <ProfileImg
-              shape="square"
-              icon={<UserImg />}
-              onClick={onChangeOpenModal}
-            />
+            {profileImgUrl ? (
+              <ProfileImg
+                shape="square"
+                onClick={onChangeOpenModal}
+                src={`http://localhost:5003/${profileImgUrl}`}
+              />
+            ) : (
+              <ProfileImg
+                shape="square"
+                icon={<UserImg />}
+                onClick={onChangeOpenModal}
+              />
+            )}
             <UsernameBox>{username}</UsernameBox>
             <CloseBtn
               id="close-btn"
               onClick={() => {
                 setUsername("");
-                window.localStorage.removeItem("user");
+                setProfileImgUrl("");
+                window.localStorage.removeItem("username");
+                window.localStorage.removeItem("profileImgUrl");
               }}
             />
           </AuthHistoryCard>
@@ -52,6 +68,8 @@ History.propTypes = {
   onChangeOpenModal: PropTypes.func.isRequired,
   username: PropTypes.string,
   setUsername: PropTypes.func.isRequired,
+  profileImgUrl: PropTypes.string,
+  setProfileImgUrl: PropTypes.func.isRequired,
 };
 
 export default History;

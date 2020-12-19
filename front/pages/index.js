@@ -28,6 +28,8 @@ const Home = ({ userData, posts }) => {
   //   };
   // }, [userData.id]);
 
+  console.log(posts);
+
   return (
     <>
       <Header userData={userData} />

@@ -1,4 +1,6 @@
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
 
 const { isLoggedIn } = require("./middlewares");
 
@@ -8,8 +10,40 @@ const router = express.Router();
 
 //유저 정보
 router.get("/", isLoggedIn, (req, res, next) => {
+  console.log("HI");
   return res.json(req.user || false);
 });
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination(req, file, done) {
+      done(null, "uploads");
+    },
+    filename(req, file, done) {
+      const ext = path.extname(file.originalname);
+      const basename = path.basename(file.originalname, ext);
+      done(null, basename + new Date().getTime() + ext);
+    },
+  }),
+  limits: { fileSize: 20 * 1024 * 1024 },
+});
+
+router.post(
+  "/image",
+  isLoggedIn,
+  upload.single("image"),
+  async (req, res, next) => {
+    try {
+      await User.update(
+        { profileImgUrl: req.file.filename },
+        { where: { id: req.user.id } }
+      );
+      res.send("ok");
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.patch("/:userId/follow", isLoggedIn, async (req, res, next) => {
   try {

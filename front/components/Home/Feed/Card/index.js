@@ -41,6 +41,7 @@ const Card = ({
   likers,
   postUserId,
   followerList,
+  profileImgUrl,
 }) => {
   const [like, setLike] = useState(
     likers.find((v) => v.id === userId) ? true : false
@@ -112,7 +113,11 @@ const Card = ({
   return (
     <CardWrapper>
       <ProfileContainer>
-        <Avatar size={40} icon={<UserOutlined />} />
+        {profileImgUrl ? (
+          <Avatar size={40} src={`http://localhost:5003/${profileImgUrl}`} />
+        ) : (
+          <Avatar size={40} icon={<UserOutlined />} />
+        )}
         <UsernameContainer>
           <span style={{ fontSize: "15px", fontWeight: 600, height: "20px" }}>
             {name}
@@ -122,9 +127,15 @@ const Card = ({
           </span>
         </UsernameContainer>
         <EllipsisContainer>
-          <Dropdown overlay={menu} placement="bottomRight" trigger={["click"]}>
-            <EllipsisOutlined />
-          </Dropdown>
+          {userId !== postUserId && (
+            <Dropdown
+              overlay={menu}
+              placement="bottomRight"
+              trigger={["click"]}
+            >
+              <EllipsisOutlined />
+            </Dropdown>
+          )}
         </EllipsisContainer>
       </ProfileContainer>
       <Content
@@ -163,6 +174,7 @@ Card.propTypes = {
   likers: PropTypes.array.isRequired,
   postUserId: PropTypes.number.isRequired,
   followerList: PropTypes.array.isRequired,
+  profileImgUrl: PropTypes.string,
 };
 
 export default Card;

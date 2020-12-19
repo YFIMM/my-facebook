@@ -54,7 +54,14 @@ const Feed = ({ username, posts, userData }) => {
               alignItems: "center",
             }}
           >
-            <Avatar size={40} icon={<UserOutlined />} />
+            {userData.profileImgUrl ? (
+              <Avatar
+                size={40}
+                src={`http://localhost:5003/${userData.profileImgUrl}`}
+              />
+            ) : (
+              <Avatar size={40} icon={<UserOutlined />} />
+            )}
             <PostBtn onClick={onToggleOpenModal}>
               {`${username}님, 무슨 생각을 하고 계신가요?`}
             </PostBtn>
@@ -66,6 +73,7 @@ const Feed = ({ username, posts, userData }) => {
             onChangeImages={onChangeImages}
             imagePaths={imagePaths}
             setImagePaths={setImagePaths}
+            profileImgUrl={userData.profileImgUrl}
           />
           <Divider />
         </PostBox>
@@ -81,6 +89,7 @@ const Feed = ({ username, posts, userData }) => {
             likers={v.Likers}
             postUserId={v.UserId}
             followerList={v.User.Followers}
+            profileImgUrl={v.User.profileImgUrl}
           />
         ))}
       </FeedContainer>

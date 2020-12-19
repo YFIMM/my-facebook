@@ -31,6 +31,7 @@ const CustomModal = ({
   onChangeImages,
   imagePaths,
   setImagePaths,
+  profileImgUrl,
 }) => {
   const imageInput = useRef();
 
@@ -99,7 +100,11 @@ const CustomModal = ({
     >
       <BodyWrapper height={imagePaths.length > 0 ? "560px" : "330px"}>
         <AvatarContainer>
-          <Avatar size={40} icon={<UserOutlined />} />
+          {profileImgUrl ? (
+            <Avatar size={40} src={`http://localhost:5003/${profileImgUrl}`} />
+          ) : (
+            <Avatar size={40} icon={<UserOutlined />} />
+          )}
           <Span>{username}</Span>
         </AvatarContainer>
         <Form onSubmit={onSubmit} encType="multipart/form-data">
@@ -137,6 +142,7 @@ CustomModal.propTypes = {
   onChangeImages: PropTypes.func.isRequired,
   imagePaths: PropTypes.array.isRequired,
   setImagePaths: PropTypes.func.isRequired,
+  profileImgUrl: PropTypes.string,
 };
 
 export default CustomModal;

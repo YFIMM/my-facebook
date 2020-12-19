@@ -15,6 +15,10 @@ module.exports = class User extends Model {
           allowNull: false, // 필수
           unique: true, // 고유한 값
         },
+        profileImgUrl: {
+          allowNull: true,
+          type: DataTypes.STRING(200),
+        },
         password: {
           type: DataTypes.STRING(200),
           allowNull: false, // 필수

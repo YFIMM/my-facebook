@@ -11,7 +11,7 @@ router.get("/", async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "name"],
+          attributes: ["id", "name", "profileImgUrl"],
           include: [
             {
               model: User,

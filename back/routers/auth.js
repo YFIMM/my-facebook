@@ -58,7 +58,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 
       const exUser = await User.findOne({
         where: { id: user.id },
-        attributes: ["id", "name", "email"],
+        attributes: ["id", "name", "email", "profileImgUrl"],
         include: [
           {
             model: User,

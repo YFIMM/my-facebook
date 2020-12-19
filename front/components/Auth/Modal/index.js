@@ -17,7 +17,12 @@ import {
   AntdButton,
 } from "@components/Auth/Modal/style";
 
-const ModalPage = ({ onChangeOpenModal, openModal, username }) => {
+const ModalPage = ({
+  onChangeOpenModal,
+  openModal,
+  username,
+  profileImgUrl,
+}) => {
   const [logInError, setLogInError] = useState("");
 
   const onSubmitForm = useCallback((e) => {
@@ -45,10 +50,17 @@ const ModalPage = ({ onChangeOpenModal, openModal, username }) => {
           />
         </CloseBtnContainer>
         <ProfileImgContainer>
-          <ProfileImg
-            size={140}
-            icon={<ImUser style={{ fontSize: "100px" }} />}
-          />
+          {profileImgUrl ? (
+            <ProfileImg
+              size={140}
+              src={`http://localhost:5003/${profileImgUrl}`}
+            />
+          ) : (
+            <ProfileImg
+              size={140}
+              icon={<ImUser style={{ fontSize: "100px" }} />}
+            />
+          )}
           <span>{username}</span>
         </ProfileImgContainer>
         <AntdForm onFinish={onSubmitForm}>
@@ -77,6 +89,7 @@ ModalPage.propTypes = {
   onChangeOpenModal: PropTypes.func.isRequired,
   openModal: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
+  profileImgUrl: PropTypes.string,
 };
 
 export default ModalPage;

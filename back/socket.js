@@ -18,13 +18,10 @@ module.exports = (server, app) => {
       onlineUsers[socket.id] = data.id;
 
       namespace.emit("onlineUsers", Object.values(onlineUsers));
-
-      console.log(onlineUsers);
     });
 
     socket.on("disconnect", () => {
       delete onlineUsers[socket.id];
-      console.log("disconnect");
       namespace.emit("onlineUsers", Object.values(onlineUsers));
     });
   });

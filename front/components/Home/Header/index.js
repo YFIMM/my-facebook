@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import { Avatar, Dropdown, Menu } from "antd";
@@ -18,10 +18,6 @@ import {
   UserWrapper,
   LogoContainer,
   Logo,
-  SearchContainer,
-  InputContainer,
-  SearchIcon,
-  Input,
   NavigatorContainer,
   HomeIcon,
   MessengerIcon,
@@ -33,9 +29,30 @@ import {
 const Header = ({ userData }) => {
   const router = useRouter();
 
+  const imageRef = useRef();
+
   const [socket, disconnectSocket] = useSocket("online");
 
   const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
+
+  const onChangeImage = useCallback((e) => {
+    const imageFormData = new FormData();
+
+    [].forEach.call(e.target.files, (f) => {
+      imageFormData.append("image", f);
+    });
+
+    axios
+      .post(`${SERVER}/user/image`, imageFormData, { withCredentials: true })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  const onClickImageUpload = useCallback(() => {
+    imageRef.current.click();
+  }, [imageRef.current]);
 
   const onClickMenu = useCallback(({ key }) => {
     if (key === "logout") {
@@ -111,8 +128,23 @@ const Header = ({ userData }) => {
       </NavigatorWrapper>
       <UserWrapper>
         <div>
-          <UserContainer>
-            <Avatar size={30} icon={<UserOutlined />} />
+          <input
+            type="file"
+            name="image"
+            hidden
+            ref={imageRef}
+            onChange={onChangeImage}
+            accept="image/x-png,image/jpeg"
+          />
+          <UserContainer onClick={onClickImageUpload}>
+            {userData.profileImgUrl ? (
+              <Avatar
+                src={`http://localhost:5003/${userData.profileImgUrl}`}
+                size={30}
+              />
+            ) : (
+              <Avatar size={30} icon={<UserOutlined />} />
+            )}
             <span>{userData.name}</span>
           </UserContainer>
           <DropDownContainer>

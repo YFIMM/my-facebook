@@ -41,7 +41,11 @@ const LogIn = ({ onChangeGoToSignUp }) => {
         )
         .then((res) => {
           Router.replace("/");
-          window.localStorage.setItem("user", res.data.exUser.name);
+          window.localStorage.setItem("username", res.data.exUser.name);
+          window.localStorage.setItem(
+            "profileImgUrl",
+            res.data.exUser.profileImgUrl
+          );
           message.success(`안녕하세요 ${res.data.exUser.name}님`);
         })
         .catch((err) => message.error(err.response.data));
