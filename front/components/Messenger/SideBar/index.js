@@ -9,8 +9,8 @@ const SideBar = ({ userData, onClickHandler }) => {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    setUserList(userList.concat(userData.Followers));
-    setUserList(userList.concat(userData.Followings));
+    setUserList((prev) => prev.concat(userData.Followers));
+    setUserList((prev) => prev.concat(userData.Followings));
 
     setUserList((prevList) => Array.from(new Set(prevList)));
   }, []);

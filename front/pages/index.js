@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import _JSXStyle from "styled-jsx/style";
-import useSWR from "swr";
 import axios from "axios";
 
 import { SERVER } from "env";
-
-import useSocket from "@hooks/useSocket";
 
 import fetcher from "@utils/fetcher";
 
@@ -15,21 +12,6 @@ import Feed from "@components/Home/Feed";
 import Social from "@components/Home/Social";
 
 const Home = ({ userData, posts }) => {
-  const [socket, disconnectSocket] = useSocket();
-  // console.log("hello: ", userData);
-
-  // useEffect(() => {
-  //   socket.emit("login", { id: userData.id });
-  // }, []);
-
-  // useEffect(() => {
-  //   return () => {
-  //     disconnectSocket();
-  //   };
-  // }, [userData.id]);
-
-  console.log(posts);
-
   return (
     <>
       <Header userData={userData} />
