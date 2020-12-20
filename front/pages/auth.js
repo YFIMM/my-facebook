@@ -18,11 +18,13 @@ const Auth = () => {
 
   const [username, setUsername] = useState("");
   const [profileImgUrl, setProfileImgUrl] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     setUsername(window.localStorage.getItem("username"));
     setProfileImgUrl(window.localStorage.getItem("profileImgUrl"));
-  }, [username, profileImgUrl]);
+    setEmail(window.localStorage.getItem("email"));
+  }, [username, profileImgUrl, email]);
 
   const onChangeGoToSignUp = useCallback(() => {
     setGoToSignUp((prev) => !prev);
@@ -54,6 +56,7 @@ const Auth = () => {
           onChangeOpenModal={onChangeOpenModal}
           username={username}
           profileImgUrl={profileImgUrl}
+          email={email}
         />
       )}
     </Wrapper>

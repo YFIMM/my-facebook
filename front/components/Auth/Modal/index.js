@@ -1,9 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { ImUser } from "react-icons/im";
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import axios from "axios";
+import Router from "next/router";
+
+import { SERVER } from "env";
 
 import {
   FormContainer,
@@ -22,11 +25,23 @@ const ModalPage = ({
   openModal,
   username,
   profileImgUrl,
+  email,
 }) => {
-  const [logInError, setLogInError] = useState("");
-
   const onSubmitForm = useCallback((e) => {
-    console.log("HI", e);
+    const { email, password } = e;
+    axios
+      .post(
+        `${SERVER}/auth/login`,
+        { email, password },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        message.success(`안녕하세요 ${res.data.exUser.name}님`);
+        Router.replace("/");
+      })
+      .catch((err) => message.error(err.response));
   }, []);
 
   return (
@@ -63,12 +78,12 @@ const ModalPage = ({
           )}
           <span>{username}</span>
         </ProfileImgContainer>
-        <AntdForm onFinish={onSubmitForm}>
+        <AntdForm onFinish={onSubmitForm} initialValues={{ email }}>
           <AntdFormItem
             name="email"
             rules={[{ required: true, message: "이메일을 입력해주세요." }]}
           >
-            <AntdInput type="email" placeholder="이메일" />
+            <AntdInput type="email" disabled />
           </AntdFormItem>
           <AntdFormItem
             name="password"
@@ -90,6 +105,7 @@ ModalPage.propTypes = {
   openModal: PropTypes.bool.isRequired,
   username: PropTypes.string.isRequired,
   profileImgUrl: PropTypes.string,
+  email: PropTypes.string.isRequired,
 };
 
 export default ModalPage;

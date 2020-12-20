@@ -46,6 +46,7 @@ const LogIn = ({ onChangeGoToSignUp }) => {
             "profileImgUrl",
             res.data.exUser.profileImgUrl
           );
+          window.localStorage.setItem("email", res.data.exUser.email);
           message.success(`안녕하세요 ${res.data.exUser.name}님`);
         })
         .catch((err) => message.error(err.response.data));
