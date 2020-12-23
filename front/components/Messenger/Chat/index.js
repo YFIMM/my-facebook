@@ -132,7 +132,7 @@ const Chat = ({ username, userId, userData }) => {
               />
               <Button
                 type="primary"
-                style={{ width: "10%", height: "90%", marginLeft: "4px" }}
+                style={{ width: "66px", height: "90%", marginLeft: "4px" }}
                 htmlType="submit"
               >
                 입력
